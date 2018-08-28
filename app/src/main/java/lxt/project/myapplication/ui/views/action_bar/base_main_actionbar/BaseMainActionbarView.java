@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,16 +31,7 @@ public class BaseMainActionbarView extends BaseView<BaseMainActionbarView.UICont
 
         ui.btnLeftActionBar.setOnClickListener(this);
         ui.btnRightActionBar.setOnClickListener(this);
-
-//        ui.buttonBackFilter.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//                showFilter = false;
-//                toggleFilter();
-//            }
-//        });
+        ui.buttonBackFilter.setOnClickListener(this);
 
         ui.buttonClear.setOnClickListener(this);
 
@@ -60,6 +52,54 @@ public class BaseMainActionbarView extends BaseView<BaseMainActionbarView.UICont
         });
     }
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.btnLeftActionBar:
+                callback.onClickButtonLeftActionbar();
+                break;
+
+            case R.id.btnRightActionBar:
+                callback.onClickButtonRightActionbar();
+                break;
+
+            case R.id.button_clear:
+                ui.editFilter.setText("");
+                break;
+
+            case R.id.button_back_filter:
+                showFilter = false;
+                toggleFilter();
+
+                break;
+        }
+
+    }
+
+    @Override
+    public void configButtonLeftActionBar(int iconLeft, int tintColor) {
+
+        ui.btnLeftActionBar.setImageResource(iconLeft);
+        ui.btnLeftActionBar.setColorFilter(getContext().getResources().getColor(tintColor));
+    }
+
+    @Override
+    public void configButtonRightActionBar(int iconRight, int tintColor) {
+
+        ui.btnRightActionBar.setImageResource(iconRight);
+        ui.btnRightActionBar.setColorFilter(getContext().getResources().getColor(tintColor));
+    }
+
+    @Override
+    public void showButtonBackFilter() {
+        setVisible(ui.buttonBackFilter);
+    }
+
+    @Override
+    public void hideButtonBackFilter() {
+        setGone(ui.buttonBackFilter);
+    }
 
     @Override
     public void setSubtitle(String subtitle) {
@@ -71,12 +111,39 @@ public class BaseMainActionbarView extends BaseView<BaseMainActionbarView.UICont
 
     @Override
     public void showLayoutFilter() {
-        setVisible(ui.layoutFilter);
+        showFilter = true;
+        toggleFilter();
     }
 
     @Override
     public void hideLayoutFilter() {
         setGone(ui.layoutFilter);
+    }
+
+    @Override
+    public void configBackgroundLayoutFilter(int backgroundCorlor) {
+        ui.layoutFilter.setBackgroundColor(getContext().getResources().getColor(backgroundCorlor));
+    }
+
+    @Override
+    public void configBackgroundLayoutFilterContainer(int drawableBackground) {
+        ui.layout_filter_container.setBackground(getContext().getResources().getDrawable(drawableBackground));
+    }
+
+    @Override
+    public void configButtonBackLayoutFilter(int tintCorlor) {
+        ui.buttonBackFilter.setColorFilter(getContext().getResources().getColor(tintCorlor));
+    }
+
+    @Override
+    public void configButtonCancelSearchLayoutFilter(int tintCorlor) {
+        ui.buttonClear.setColorFilter(getContext().getResources().getColor(tintCorlor));
+    }
+
+    @Override
+    public void configEdtSearchLayoutFilter(int textColor, int backgroundColor) {
+        ui.editFilter.setTextColor(getContext().getResources().getColor(textColor));
+        ui.editFilter.setBackgroundColor(getContext().getResources().getColor(backgroundColor));
     }
 
     private void toggleFilter() {
@@ -95,24 +162,6 @@ public class BaseMainActionbarView extends BaseView<BaseMainActionbarView.UICont
         callback.onFilterToggle(showFilter);
     }
 
-    @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-            case R.id.btnLeftActionBar:
-
-                break;
-
-            case R.id.btnRightActionBar:
-
-                break;
-
-            case R.id.button_clear:
-                ui.editFilter.setText("");
-                break;
-        }
-
-    }
 
     @Override
     public void setActionbarColor(int resId) {
@@ -176,19 +225,22 @@ public class BaseMainActionbarView extends BaseView<BaseMainActionbarView.UICont
         public TextView subtitle;
 
         @UiElement(R.id.btnLeftActionBar)
-        public View btnLeftActionBar;
+        public ImageView btnLeftActionBar;
 
         @UiElement(R.id.btnRightActionBar)
-        public View btnRightActionBar;
+        public ImageView btnRightActionBar;
 
         @UiElement(R.id.layout_filter)
         public View layoutFilter;
 
+        @UiElement(R.id.layout_filter_container)
+        public View layout_filter_container;
+
         @UiElement(R.id.button_back_filter)
-        public View buttonBackFilter;
+        public ImageView buttonBackFilter;
 
         @UiElement(R.id.button_clear)
-        public View buttonClear;
+        public ImageView buttonClear;
 
         @UiElement(R.id.edit_filter)
         public EditText editFilter;

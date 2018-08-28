@@ -10,4 +10,8 @@ public interface BaseMainActionbarViewCallback {
 
     void onFiltering(String keyword);
 
+    void onClickButtonLeftActionbar();
+
+    void onClickButtonRightActionbar();
+
 }

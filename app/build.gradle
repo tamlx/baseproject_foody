@@ -59,7 +59,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation(name: 'myaarlibrary-1.0.4', ext: 'aar')
+    implementation 'b.laixuantam.myarrlibrary:myaarlibrary:1.0.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -146,5 +146,9 @@ repositories {
 
     flatDir {
         dirs 'libs'
+    }
+
+    maven {
+        url  "https://dl.bintray.com/tamlx/BaseProject"
     }
 }

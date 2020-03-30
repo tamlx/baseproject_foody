@@ -6,9 +6,12 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
 import java.util.Locale;
 
 import b.laixuantam.myaarlibrary.helper.LanguageHelper;
+import lxt.project.myapplication.model.UserResponseModel;
 
 public class SharePrefs {
 
@@ -438,5 +441,30 @@ public class SharePrefs {
         return sharedPreferences.getString(PREF_TOKEN, DEFAULT_BLANK);
     }
 
+    private static final String PREF_USER_MODEL = "PREF_USER_MODEL";
+
+    private final Gson gson = new Gson();
+
+    public void saveUserModel(UserResponseModel model) {
+        save(PREF_USER_MODEL, gson.toJson(model));
+    }
+
+    public UserResponseModel getUserModel() {
+        String json = get(PREF_USER_MODEL, "");
+        if (!TextUtils.isEmpty(json)) {
+            return gson.fromJson(json, UserResponseModel.class);
+        }
+        return null;
+    }
+
+    private static final String PREF_DEVICE_IMEI = "PREF_DEVICE_IMEI";
+
+    public String getDeviceImei() {
+        return sharedPreferences.getString(PREF_DEVICE_IMEI, DEFAULT_BLANK);
+    }
+
+    public void saveDeviceImei(String deviceImei) {
+        save(PREF_DEVICE_IMEI, deviceImei);
+    }
 
 }

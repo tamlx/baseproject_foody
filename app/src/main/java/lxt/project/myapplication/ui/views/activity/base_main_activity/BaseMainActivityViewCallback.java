@@ -6,4 +6,7 @@ package lxt.project.myapplication.ui.views.activity.base_main_activity;
 
 public interface BaseMainActivityViewCallback
 {
+    void onClickButtonAlert();
+
+
 }

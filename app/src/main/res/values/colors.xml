@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#009464</color>
     <color name="colorPrimaryDark">#009464</color>
     <color name="colorAccent">#FF4081</color>
@@ -79,4 +79,10 @@
 
     <color name="titleTabColor">#ffffff</color>
     <color name="titleSelectedTabColor">#3F51B5</color>
+
+    <item name="gray_holo_dark" type="color">#ff464646</item>
+    <item name="gray_holo_light" type="color">#ffd0d0d0</item>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="yellow">#ffea00</color>
+    <color name="button_background" tools:ignore="MissingDefaultResource">#023373</color>
 </resources>

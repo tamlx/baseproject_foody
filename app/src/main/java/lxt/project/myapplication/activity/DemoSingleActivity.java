@@ -7,10 +7,10 @@ import java.util.Date;
 
 import b.laixuantam.myaarlibrary.base.BaseActivity;
 import b.laixuantam.myaarlibrary.base.BaseParameters;
+import b.laixuantam.myaarlibrary.widgets.slidedatetimepicker.SlideDateTimeListener;
+import b.laixuantam.myaarlibrary.widgets.slidedatetimepicker.SlideDateTimePicker;
 import b.laixuantam.myaarlibrary.widgets.ultils.ConvertDate;
 import lxt.project.myapplication.R;
-import lxt.project.myapplication.dialog.slidedatetimepicker.SlideDateTimeListener;
-import lxt.project.myapplication.dialog.slidedatetimepicker.SlideDateTimePicker;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarView;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarViewCallback;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarViewInterface;
@@ -43,36 +43,6 @@ public class DemoSingleActivity extends BaseActivity<BaseMainActivityViewInterfa
 
         actionbar.configEdtSearchLayoutFilter(R.color.white, R.color.color_primary);
 
-    }
-
-    private SlideDateTimeListener listener = new SlideDateTimeListener() {
-
-        @Override
-        public void onDateTimeSet(Date date) {
-
-            Toast.makeText(DemoSingleActivity.this,
-                    mFormatterNice.format(date), Toast.LENGTH_SHORT).show();
-        }
-
-        // Optional cancel listener
-        @Override
-        public void onDateTimeCancel() {
-        }
-    };
-
-    private void showDateTimePickerDialog() {
-        new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                .setContext(getApplicationContext())
-                .setListener(listener)
-                .setInitialDate(ConvertDate.getTimeMoment())
-                //.setMinDate(minDate)
-                //.setMaxDate(maxDate)
-                .setIs24HourTime(true)
-                //.setTheme(SlideDateTimePicker.HOLO_DARK)
-                //.setIndicatorColor(Color.parseColor("#990000"))
-                .setTypeShowDialog(0)
-                .build()
-                .show();
     }
 
     @Override
@@ -129,5 +99,36 @@ public class DemoSingleActivity extends BaseActivity<BaseMainActivityViewInterfa
 
         showDateTimePickerDialog();
 
+    }
+
+    private SlideDateTimeListener listener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date) {
+
+            Toast.makeText(getApplicationContext(),
+                    mFormatterNice.format(date), Toast.LENGTH_SHORT).show();
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel() {
+        }
+    };
+
+
+    private void showDateTimePickerDialog() {
+        new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                .setContext(this)
+                .setListener(listener)
+                .setInitialDate(ConvertDate.getTimeMoment())
+                //.setMinDate(minDate)
+                //.setMaxDate(maxDate)
+                .setIs24HourTime(true)
+                //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                //.setIndicatorColor(Color.parseColor("#990000"))
+                .setTypeShowDialog(0)//0: both date and time - 1: date picker - 2: time picker
+                .build()
+                .show();
     }
 }

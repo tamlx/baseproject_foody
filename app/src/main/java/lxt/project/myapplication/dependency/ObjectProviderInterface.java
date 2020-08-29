@@ -8,14 +8,14 @@ import b.laixuantam.myaarlibrary.helper.FileHelper;
 import b.laixuantam.myaarlibrary.helper.ImageHelper;
 import b.laixuantam.myaarlibrary.helper.InstallationHelper;
 import b.laixuantam.myaarlibrary.helper.LanguageHelper;
-import lxt.project.myapplication.database.DatabaseHelper;
+//import lxt.project.myapplication.database.DatabaseHelper;
 import lxt.project.myapplication.helper.SharePrefs;
 
 public interface ObjectProviderInterface
 {
     SharePrefs getPreferences();
 
-    DatabaseHelper getDatabaseHelper();
+//    DatabaseHelper getDatabaseHelper();
 
     ImageHelper getImageHelper();
 

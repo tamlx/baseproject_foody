@@ -12,7 +12,7 @@ import b.laixuantam.myaarlibrary.helper.FileHelper;
 import b.laixuantam.myaarlibrary.helper.ImageHelper;
 import b.laixuantam.myaarlibrary.helper.InstallationHelper;
 import b.laixuantam.myaarlibrary.helper.LanguageHelper;
-import lxt.project.myapplication.database.DatabaseHelper;
+//import lxt.project.myapplication.database.DatabaseHelper;
 import lxt.project.myapplication.helper.SharePrefs;
 
 /**
@@ -26,7 +26,7 @@ public class AppObjectProvider implements ObjectProviderInterface {
     private SharePrefs preferences;
     private InstallationHelper installationHelper;
     private Security security;
-    private DatabaseHelper databaseHelper;
+//    private DatabaseHelper databaseHelper;
     private ImageHelper imageHelper;
     private AppCleanerHelper appCleanerHelper;
     private FileHelper fileHelper;
@@ -43,10 +43,10 @@ public class AppObjectProvider implements ObjectProviderInterface {
         b.laixuantam.myaarlibrary.dependency.AppProvider.init(objectProviderInterface1);
     }
 
-    @Override
-    public DatabaseHelper getDatabaseHelper() {
-        return (databaseHelper == null) ? (databaseHelper = new DatabaseHelper(context)) : databaseHelper;
-    }
+//    @Override
+//    public DatabaseHelper getDatabaseHelper() {
+//        return (databaseHelper == null) ? (databaseHelper = new DatabaseHelper(context)) : databaseHelper;
+//    }
 
     @Override
     public ImageHelper getImageHelper() {

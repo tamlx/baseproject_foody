@@ -1,11 +1,10 @@
 package lxt.project.myapplication.api.account.update_profile;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.io.File;
 import java.util.Objects;
-
-import javax.annotation.Nullable;
 
 import b.laixuantam.myaarlibrary.api.ApiRequest;
 import b.laixuantam.myaarlibrary.api.BaseApiParams;

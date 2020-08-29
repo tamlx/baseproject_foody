@@ -114,7 +114,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="45dp"
                         android:layout_weight="1"
-                        android:background="@drawable/transparent"
+                        android:background="@color/transparent"
                         android:gravity="center_vertical"
                         android:hint="Nhập số điện thoại"
                         android:inputType="phone"
@@ -173,7 +173,7 @@
                         android:layout_marginLeft="45dp"
                         android:layout_marginRight="45dp"
                         android:layout_weight="1"
-                        android:background="@drawable/transparent"
+                        android:background="@color/transparent"
                         android:gravity="center_vertical"
                         android:hint="Nhập mật khẩu"
                         android:inputType="textPassword"
@@ -307,11 +307,11 @@
             android:textColor="@color/red"
             android:visibility="visible" />
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+<!--        <com.facebook.login.widget.LoginButton-->
+<!--            android:id="@+id/login_button_facebook"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone" />-->
 
     </b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>
 

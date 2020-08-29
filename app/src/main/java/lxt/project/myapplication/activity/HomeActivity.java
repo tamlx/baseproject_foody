@@ -29,19 +29,19 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.auth.api.Auth;
+//import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+//import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+//import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+//import com.google.android.gms.common.ConnectionResult;
+//import com.google.android.gms.common.api.ApiException;
+//import com.google.android.gms.common.api.GoogleApiClient;
+//import com.google.android.gms.location.FusedLocationProviderClient;
+//import com.google.android.gms.location.LocationCallback;
+//import com.google.android.gms.location.LocationRequest;
+//import com.google.android.gms.location.LocationResult;
+//import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -90,23 +90,23 @@ import lxt.project.myapplication.ui.views.activity.base_main_activity.BaseMainAc
 import lxt.project.myapplication.ui.views.activity.base_main_activity.BaseMainActivityViewInterface;
 import lxt.project.myapplication.ui.views.activity.home_activity.HomeActivityViewCallback;
 
-public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInterface, BaseMainActionbarViewInterface, BaseParameters> implements BaseMainActionbarViewCallback, HomeActivityViewCallback, ActivityCompat.OnRequestPermissionsResultCallback, OnKeyboardVisibilityListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInterface, BaseMainActionbarViewInterface, BaseParameters> implements BaseMainActionbarViewCallback, HomeActivityViewCallback, ActivityCompat.OnRequestPermissionsResultCallback, OnKeyboardVisibilityListener /*, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener */{
 
     private static final String TAG = HomeActivity.class.getName();
     private LocationHelper locationHelper;
-    private GoogleApiClient mGoogleApiClient;
-    GoogleSignInClient mGoogleSignInClient;
+//    private GoogleApiClient mGoogleApiClient;
+//    GoogleSignInClient mGoogleSignInClient;
 
     public static final int REQUEST_PHONE_CALL = 101;
 
     @Override
     protected void initialize(Bundle bundle) {
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this/* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this/* FragmentActivity */, this /* OnConnectionFailedListener */)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
 
         FullScreencall();
 
@@ -640,8 +640,8 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 //        }
 
         if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            handleSignInResult(result);
 
 //            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 //            handleSignInResult(task);
@@ -688,107 +688,102 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     }
 
     public void signInGoogle() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-
-//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 //        startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        locationHelper.requestGetLocation();
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        locationHelper.connectApiClient();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            String userId = account.getId();
-
-            String userEmail = account.getEmail();
-
-            String lastname = account.getFamilyName();
-
-            String firstname = account.getGivenName();
-
-            String userName = account.getDisplayName();
-
-            String userImage = "";
-
-            if (account.getPhotoUrl() != null && !account.getPhotoUrl().toString().isEmpty()) {
-                userImage = account.getPhotoUrl().toString() + "?sz=150";
-            }
-
-            AppProvider.getPreferences().saveUserGGId(userId);
-            if (!userImage.isEmpty()) {
-                AppProvider.getPreferences().saveUserImage(userImage);
-            }
-
-            AppProvider.getPreferences().saveUserEmail(userEmail);
-            AppProvider.getPreferences().saveUsername(userName);
-            AppProvider.getPreferences().saveUserFirstName(firstname);
-            AppProvider.getPreferences().saveUserLastName(lastname);
-
-            RequestLoginWithGoogleEvent.post();
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            MyLog.e("", "signInResult:failed code=" + e.getStatusCode());
-        }
-    }
-
-    private void handleSignInResult(GoogleSignInResult result) {
-        MyLog.e("GGSignIn", "handleSignInResult:" + result.isSuccess());
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount account = result.getSignInAccount();
-            //            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-
-            String userId = account.getId();
-
-            String userEmail = account.getEmail();
-
-            String lastname = account.getFamilyName();
-
-            String firstname = account.getGivenName();
-
-            String userName = account.getDisplayName();
-
-            String userImage = "";
-
-            if (account.getPhotoUrl() != null && !account.getPhotoUrl().toString().isEmpty()) {
-                userImage = account.getPhotoUrl().toString() + "?sz=150";
-            }
-
-            AppProvider.getPreferences().saveUserGGId(userId);
-            if (!userImage.isEmpty()) {
-                AppProvider.getPreferences().saveUserImage(userImage);
-            }
-
-            AppProvider.getPreferences().saveUserEmail(userEmail);
-            AppProvider.getPreferences().saveUsername(userName);
-            AppProvider.getPreferences().saveUserFirstName(firstname);
-            AppProvider.getPreferences().saveUserLastName(lastname);
-
-            RequestLoginWithGoogleEvent.post();
-
-        } else {
-            MyLog.e("GGSignIn", "signInResult:failed code=" + result.getSignInAccount());
-        }
-
-    }
+//    @Override
+//    public void onConnected(@Nullable Bundle bundle) {
+//        locationHelper.requestGetLocation();
+//    }
+//
+//    @Override
+//    public void onConnectionSuspended(int i) {
+//        locationHelper.connectApiClient();
+//    }
+//
+//    @Override
+//    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+//
+//    }
+//
+//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+//
+//            String userId = account.getId();
+//
+//            String userEmail = account.getEmail();
+//
+//            String lastname = account.getFamilyName();
+//
+//            String firstname = account.getGivenName();
+//
+//            String userName = account.getDisplayName();
+//
+//            String userImage = "";
+//
+//            if (account.getPhotoUrl() != null && !account.getPhotoUrl().toString().isEmpty()) {
+//                userImage = account.getPhotoUrl().toString() + "?sz=150";
+//            }
+//
+//            AppProvider.getPreferences().saveUserGGId(userId);
+//            if (!userImage.isEmpty()) {
+//                AppProvider.getPreferences().saveUserImage(userImage);
+//            }
+//
+//            AppProvider.getPreferences().saveUserEmail(userEmail);
+//            AppProvider.getPreferences().saveUsername(userName);
+//            AppProvider.getPreferences().saveUserFirstName(firstname);
+//            AppProvider.getPreferences().saveUserLastName(lastname);
+//
+//            RequestLoginWithGoogleEvent.post();
+//        } catch (ApiException e) {
+//            // The ApiException status code indicates the detailed failure reason.
+//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+//            MyLog.e("", "signInResult:failed code=" + e.getStatusCode());
+//        }
+//    }
+//
+//    private void handleSignInResult(GoogleSignInResult result) {
+//        MyLog.e("GGSignIn", "handleSignInResult:" + result.isSuccess());
+//        if (result.isSuccess()) {
+//            // Signed in successfully, show authenticated UI.
+//            GoogleSignInAccount account = result.getSignInAccount();
+//            //            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+//
+//            String userId = account.getId();
+//
+//            String userEmail = account.getEmail();
+//
+//            String lastname = account.getFamilyName();
+//
+//            String firstname = account.getGivenName();
+//
+//            String userName = account.getDisplayName();
+//
+//            String userImage = "";
+//
+//            if (account.getPhotoUrl() != null && !account.getPhotoUrl().toString().isEmpty()) {
+//                userImage = account.getPhotoUrl().toString() + "?sz=150";
+//            }
+//
+//            AppProvider.getPreferences().saveUserGGId(userId);
+//            if (!userImage.isEmpty()) {
+//                AppProvider.getPreferences().saveUserImage(userImage);
+//            }
+//
+//            AppProvider.getPreferences().saveUserEmail(userEmail);
+//            AppProvider.getPreferences().saveUsername(userName);
+//            AppProvider.getPreferences().saveUserFirstName(firstname);
+//            AppProvider.getPreferences().saveUserLastName(lastname);
+//
+//            RequestLoginWithGoogleEvent.post();
+//
+//        } else {
+//            MyLog.e("GGSignIn", "signInResult:failed code=" + result.getSignInAccount());
+//        }
+//    }
 
     private void showDialog() {
         final FeedbackRatingDialog ratingDialog = new FeedbackRatingDialog.Builder(HomeActivity.this)
@@ -993,8 +988,8 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 //    }
 
 
-    private LocationRequest mLocationRequest;
-    private FusedLocationProviderClient mFusedProviderClient;
+//    private LocationRequest mLocationRequest;
+//    private FusedLocationProviderClient mFusedProviderClient;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void reloadDataCurrentLocation() {
@@ -1007,22 +1002,22 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
             requestPermissions(permissions, Consts.REQUEST_CODE_GPS);
         } else {
 
-            LocationCallback mLocationCallback = new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    super.onLocationResult(locationResult);
-                    BaseFragment fragment = getCurrentFragment();
-
-                    List<Location> locations = locationResult.getLocations();
-
-                    if (locations.size() > 0) {
-
-                    } else {
-                    }
-                }
-            };
-
-            mFusedProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+//            LocationCallback mLocationCallback = new LocationCallback() {
+//                @Override
+//                public void onLocationResult(LocationResult locationResult) {
+//                    super.onLocationResult(locationResult);
+//                    BaseFragment fragment = getCurrentFragment();
+//
+//                    List<Location> locations = locationResult.getLocations();
+//
+//                    if (locations.size() > 0) {
+//
+//                    } else {
+//                    }
+//                }
+//            };
+//
+//            mFusedProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
         }
     }
 

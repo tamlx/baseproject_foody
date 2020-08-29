@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
+//import com.facebook.AccessToken;
+//import com.facebook.CallbackManager;
+//import com.facebook.GraphRequest;
+//import com.facebook.GraphResponse;
+//import com.facebook.login.LoginManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -47,7 +47,7 @@ public class FragmentLogin extends BaseFragment<LoginViewInterface, BaseParamete
 
     private HomeActivity activity;
 
-    private CallbackManager callbackManager;
+//    private CallbackManager callbackManager;
 
     @Override
     protected void initialize() {
@@ -58,121 +58,121 @@ public class FragmentLogin extends BaseFragment<LoginViewInterface, BaseParamete
         activity.FullScreencall();
 
         clearAccessTokenFacebook();
-        callbackManager = CallbackManager.Factory.create();
-        view.setUpFacebookLoginButton(this, callbackManager);
+//        callbackManager = CallbackManager.Factory.create();
+//        view.setUpFacebookLoginButton(this, callbackManager);
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void clearAccessTokenFacebook() {
-        if (AccessToken.getCurrentAccessToken() != null) {
-            LoginManager.getInstance().logOut();
-            AccessToken.setCurrentAccessToken(null);
-        }
+//        if (AccessToken.getCurrentAccessToken() != null) {
+//            LoginManager.getInstance().logOut();
+//            AccessToken.setCurrentAccessToken(null);
+//        }
     }
 
-    @Override
-    public void loginFacebookSuccess(AccessToken accessToken) {
-        showProgress();
-
-        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                //                Log.i("LoginActivity", response.toString());
-                // Get facebook data from login
-                getFacebookData(object);
-            }
-        });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, address"); // Parámetros que pedimos a facebook
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
-
-    private void getFacebookData(JSONObject object) {
-        String TAG = "FacebookData ";
-
-        try {
-            String id = object.getString("id").toString();
-            AppProvider.getPreferences().saveFacebookId(id);
-
-            MyLog.e(TAG, "id_fb" + id);
-
-            String email = "";
-            String profile_pic_link = "";
-            try {
-                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
-                MyLog.e(TAG, "profile_pic " + profile_pic + "");
-                profile_pic_link = profile_pic.toString();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-
-            String firstName = "";
-            String lastName = "";
-
-            if (object.has("first_name")) {
-                MyLog.e(TAG, "first_name " + object.getString("first_name"));
-                firstName = object.getString("first_name");
-                AppProvider.getPreferences().saveUserFirstName(object.getString("first_name"));
-            }
-            if (object.has("last_name")) {
-                lastName = object.getString("last_name");
-                MyLog.e(TAG, "last_name " + object.getString("last_name"));
-                AppProvider.getPreferences().saveUserLastName(object.getString("last_name"));
-            }
-
-            String userName = firstName + " " + lastName;
-
-            AppProvider.getPreferences().saveUsername(userName);
-
-
-            if (object.has("email")) {
-                email = object.getString("email");
-                MyLog.e(TAG, "email " + email);
-                AppProvider.getPreferences().saveUserEmail(email);
-
-            }
-            if (object.has("gender")) {
-                MyLog.e(TAG, "gender " + object.getString("gender"));
-                AppProvider.getPreferences().saveUserGender(object.getString("gender"));
-            }
-            if (object.has("birthday")) {
-                MyLog.e(TAG, "birthday " + object.getString("birthday"));
-                AppProvider.getPreferences().saveUserBirthday(object.getString("birthday"));
-            }
-
-            String address = "";
-            if (object.has("address")) {
-                address = object.getString("address");
-                MyLog.e(TAG, "address " + object.getString("address"));
-                AppProvider.getPreferences().saveUserGender(object.getString("address"));
-            }
-
-            UserRegisterModel userRegisterModel = new UserRegisterModel();
-            userRegisterModel.setUserEmail(email);
-            userRegisterModel.setUserFirstName(firstName);
-            userRegisterModel.setUserLastName(lastName);
-            userRegisterModel.setUser_social_id(id);
-            userRegisterModel.setType_login("fb");
-            userRegisterModel.setImg_social_link(profile_pic_link);
-            userRegisterModel.setUserAddress(address);
-
-            onSignUp(userRegisterModel);
-
-            dismissProgress();
-
-        } catch (JSONException e) {
-            MyLog.e("FacebookData", "Error parsing JSON");
-            dismissProgress();
-        }
-    }
+//    @Override
+//    public void loginFacebookSuccess(AccessToken accessToken) {
+//        showProgress();
+//
+//        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+//            @Override
+//            public void onCompleted(JSONObject object, GraphResponse response) {
+//                //                Log.i("LoginActivity", response.toString());
+//                // Get facebook data from login
+//                getFacebookData(object);
+//            }
+//        });
+//        Bundle parameters = new Bundle();
+//        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, address"); // Parámetros que pedimos a facebook
+//        request.setParameters(parameters);
+//        request.executeAsync();
+//    }
+//
+//    private void getFacebookData(JSONObject object) {
+//        String TAG = "FacebookData ";
+//
+//        try {
+//            String id = object.getString("id").toString();
+//            AppProvider.getPreferences().saveFacebookId(id);
+//
+//            MyLog.e(TAG, "id_fb" + id);
+//
+//            String email = "";
+//            String profile_pic_link = "";
+//            try {
+//                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+//                MyLog.e(TAG, "profile_pic " + profile_pic + "");
+//                profile_pic_link = profile_pic.toString();
+//
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            }
+//
+//            String firstName = "";
+//            String lastName = "";
+//
+//            if (object.has("first_name")) {
+//                MyLog.e(TAG, "first_name " + object.getString("first_name"));
+//                firstName = object.getString("first_name");
+//                AppProvider.getPreferences().saveUserFirstName(object.getString("first_name"));
+//            }
+//            if (object.has("last_name")) {
+//                lastName = object.getString("last_name");
+//                MyLog.e(TAG, "last_name " + object.getString("last_name"));
+//                AppProvider.getPreferences().saveUserLastName(object.getString("last_name"));
+//            }
+//
+//            String userName = firstName + " " + lastName;
+//
+//            AppProvider.getPreferences().saveUsername(userName);
+//
+//
+//            if (object.has("email")) {
+//                email = object.getString("email");
+//                MyLog.e(TAG, "email " + email);
+//                AppProvider.getPreferences().saveUserEmail(email);
+//
+//            }
+//            if (object.has("gender")) {
+//                MyLog.e(TAG, "gender " + object.getString("gender"));
+//                AppProvider.getPreferences().saveUserGender(object.getString("gender"));
+//            }
+//            if (object.has("birthday")) {
+//                MyLog.e(TAG, "birthday " + object.getString("birthday"));
+//                AppProvider.getPreferences().saveUserBirthday(object.getString("birthday"));
+//            }
+//
+//            String address = "";
+//            if (object.has("address")) {
+//                address = object.getString("address");
+//                MyLog.e(TAG, "address " + object.getString("address"));
+//                AppProvider.getPreferences().saveUserGender(object.getString("address"));
+//            }
+//
+//            UserRegisterModel userRegisterModel = new UserRegisterModel();
+//            userRegisterModel.setUserEmail(email);
+//            userRegisterModel.setUserFirstName(firstName);
+//            userRegisterModel.setUserLastName(lastName);
+//            userRegisterModel.setUser_social_id(id);
+//            userRegisterModel.setType_login("fb");
+//            userRegisterModel.setImg_social_link(profile_pic_link);
+//            userRegisterModel.setUserAddress(address);
+//
+//            onSignUp(userRegisterModel);
+//
+//            dismissProgress();
+//
+//        } catch (JSONException e) {
+//            MyLog.e("FacebookData", "Error parsing JSON");
+//            dismissProgress();
+//        }
+//    }
 
     @Override
     protected LoginViewInterface getViewInstance() {

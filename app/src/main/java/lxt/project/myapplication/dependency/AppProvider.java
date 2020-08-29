@@ -8,7 +8,7 @@ import b.laixuantam.myaarlibrary.helper.FileHelper;
 import b.laixuantam.myaarlibrary.helper.ImageHelper;
 import b.laixuantam.myaarlibrary.helper.InstallationHelper;
 import b.laixuantam.myaarlibrary.helper.LanguageHelper;
-import lxt.project.myapplication.database.DatabaseHelper;
+//import lxt.project.myapplication.database.DatabaseHelper;
 import lxt.project.myapplication.helper.SharePrefs;
 
 /**
@@ -22,9 +22,9 @@ public class AppProvider {
         instance = objectProviderInterface;
     }
 
-    public static DatabaseHelper getDatabaseHelper() {
-        return instance.getDatabaseHelper();
-    }
+//    public static DatabaseHelper getDatabaseHelper() {
+//        return instance.getDatabaseHelper();
+//    }
 
     public static ImageHelper getImageHelper() {
         return instance.getImageHelper();

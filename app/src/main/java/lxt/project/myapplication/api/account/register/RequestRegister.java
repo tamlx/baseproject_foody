@@ -1,6 +1,6 @@
 package lxt.project.myapplication.api.account.register;
 
-import javax.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 import b.laixuantam.myaarlibrary.api.ApiRequest;
 import b.laixuantam.myaarlibrary.api.BaseApiParams;

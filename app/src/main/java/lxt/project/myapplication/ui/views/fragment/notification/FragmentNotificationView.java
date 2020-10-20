@@ -17,7 +17,7 @@ import b.laixuantam.myaarlibrary.widgets.cptr.PtrClassicFrameLayout;
 import b.laixuantam.myaarlibrary.widgets.cptr.PtrDefaultHandler;
 import b.laixuantam.myaarlibrary.widgets.cptr.PtrFrameLayout;
 import b.laixuantam.myaarlibrary.widgets.cptr.recyclerview.RecyclerAdapterWithHF;
-import b.laixuantam.myaarlibrary.widgets.scaletouchlistener.ScaleTouchListener;
+import b.laixuantam.myaarlibrary.widgets.touch_view_anim.scaletouchlistener.ScaleTouchListener;
 import lxt.project.myapplication.R;
 import lxt.project.myapplication.activity.HomeActivity;
 import lxt.project.myapplication.adapter.NotificationAdapter;

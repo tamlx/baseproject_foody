@@ -12,7 +12,7 @@ import b.laixuantam.myaarlibrary.base.BaseView;
 import b.laixuantam.myaarlibrary.helper.AppUtils;
 import b.laixuantam.myaarlibrary.widgets.bottomnavigationbar.BottomItem;
 import b.laixuantam.myaarlibrary.widgets.bottomnavigationbar.BottomNavigationBar;
-import b.laixuantam.myaarlibrary.widgets.scaletouchlistener.ScaleTouchListener;
+import b.laixuantam.myaarlibrary.widgets.touch_view_anim.scaletouchlistener.ScaleTouchListener;
 import b.laixuantam.myaarlibrary.widgets.tutorial.TutorialModel;
 import b.laixuantam.myaarlibrary.widgets.tutorial.TutorialView;
 import lxt.project.myapplication.R;

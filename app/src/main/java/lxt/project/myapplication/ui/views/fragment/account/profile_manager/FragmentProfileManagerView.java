@@ -14,7 +14,7 @@ import b.laixuantam.myaarlibrary.helper.KeyboardUtils;
 import b.laixuantam.myaarlibrary.widgets.dialog.alert.KAlertDialog;
 import b.laixuantam.myaarlibrary.widgets.popupmenu.ActionItem;
 import b.laixuantam.myaarlibrary.widgets.popupmenu.MyCustomPopupMenu;
-import b.laixuantam.myaarlibrary.widgets.scaletouchlistener.ScaleTouchListener;
+import b.laixuantam.myaarlibrary.widgets.touch_view_anim.scaletouchlistener.ScaleTouchListener;
 import lxt.project.myapplication.R;
 import lxt.project.myapplication.activity.HomeActivity;
 import lxt.project.myapplication.dependency.AppProvider;

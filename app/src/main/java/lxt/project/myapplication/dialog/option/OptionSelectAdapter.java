@@ -14,11 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import b.laixuantam.myaarlibrary.helper.NumericFormater;
-import b.laixuantam.myaarlibrary.widgets.scaletouchlistener.ScaleTouchListener;
+import b.laixuantam.myaarlibrary.helper.CurrencyFormater;
+
 import b.laixuantam.myaarlibrary.widgets.superadapter.IMulItemViewType;
 import b.laixuantam.myaarlibrary.widgets.superadapter.SuperAdapter;
 import b.laixuantam.myaarlibrary.widgets.superadapter.SuperViewHolder;
+import b.laixuantam.myaarlibrary.widgets.touch_view_anim.scaletouchlistener.ScaleTouchListener;
 import b.laixuantam.myaarlibrary.widgets.ultils.ConvertDate;
 import lxt.project.myapplication.R;
 import lxt.project.myapplication.dependency.AppProvider;

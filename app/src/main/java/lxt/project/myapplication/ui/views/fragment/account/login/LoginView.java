@@ -2,7 +2,6 @@ package lxt.project.myapplication.ui.views.fragment.account.login;
 
 import android.annotation.SuppressLint;
 import android.graphics.Paint;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;

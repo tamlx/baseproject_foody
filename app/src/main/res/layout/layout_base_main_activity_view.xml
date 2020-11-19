@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -30,10 +31,42 @@
             <b.laixuantam.myaarlibrary.widgets.bottomnavigationbar.BottomNavigationBar
                 android:id="@+id/bnb_menu_control"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="#FFFFFF"
                 android:visibility="gone" />
+
+            <com.hk.kbottomnavigation.KBottomNavigation
+                android:id="@+id/layout_KBottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mbn_backgroundBottomColor="#ffffff"
+                android:layout_centerInParent="true"
+                app:mbn_countBackgroundColor="#ff6f00"
+                app:mbn_countTextColor="#ffffff"
+                app:mbn_defaultIconColor="#90a4ae"
+                app:mbn_rippleColor="#2f424242"
+                app:mbn_selectedIconColor="#3c415e"
+                app:mbn_shadowColor="#1f212121"/>
+
+            <com.simform.custombottomnavigation.SSCustomBottomNavigation
+                android:id="@+id/layout_SSCustomBottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                app:ss_backgroundBottomColor="#ffffff"
+                app:ss_circleColor="#ff6f00"
+                app:ss_countBackgroundColor="#ff6f00"
+                app:ss_countTextColor="#ffffff"
+                app:ss_defaultIconColor="#6200EE"
+                app:ss_iconTextColor="#6200EE"
+                app:ss_iconTextSize="14sp"
+                app:ss_rippleColor="#2f424242"
+                app:ss_selectedIconColor="#ff6f00"
+                app:ss_selectedIconTextColor="#ff6f00"
+                app:ss_shadowColor="#1f212121"
+                app:ss_waveHeight="7" />
 
             <RelativeLayout
                 android:id="@+id/LayoutBaseMainActivity"
@@ -70,7 +103,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <android.support.design.widget.NavigationView
+    <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -85,6 +118,6 @@
 
             <include layout="@layout/layout_custom_menu_navigation" />
         </RelativeLayout>
-    </android.support.design.widget.NavigationView>
+    </com.google.android.material.navigation.NavigationView>
 
-</android.support.v4.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

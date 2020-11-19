@@ -1,7 +1,8 @@
 package lxt.project.myapplication.api.account.update_profile;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.util.Objects;

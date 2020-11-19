@@ -1,9 +1,5 @@
 package lxt.project.myapplication.ui.views.fragment.account.login;
 
-import android.support.v4.app.Fragment;
-
-//import com.facebook.CallbackManager;
-
 import b.laixuantam.myaarlibrary.base.BaseViewInterface;
 
 public interface LoginViewInterface extends BaseViewInterface {

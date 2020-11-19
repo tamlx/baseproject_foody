@@ -1,6 +1,7 @@
 package lxt.project.myapplication.model;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import b.laixuantam.myaarlibrary.api.BaseApiResponse;
 

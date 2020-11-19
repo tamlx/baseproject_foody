@@ -12,6 +12,7 @@ import b.laixuantam.myaarlibrary.widgets.slidedatetimepicker.SlideDateTimeListen
 import b.laixuantam.myaarlibrary.widgets.slidedatetimepicker.SlideDateTimePicker;
 import b.laixuantam.myaarlibrary.widgets.ultils.ConvertDate;
 import lxt.project.myapplication.R;
+import lxt.project.myapplication.dialog.InputNumberDialog;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarView;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarViewCallback;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarViewInterface;
@@ -101,14 +102,20 @@ public class DemoSingleActivity extends BaseActivity<BaseMainActivityViewInterfa
             public void onClick(KAlertDialog kAlertDialog) {
                 kAlertDialog.dismiss();
             }
-        },R.drawable.logout);
+        }, R.drawable.logout);
     }
 
     @Override
     public void onClickButtonRightActionbar() {
 //        actionbar.showLayoutFilter();
 
-        showDateTimePickerDialog();
+//        showDateTimePickerDialog();
+
+//        showConfirmAlert("title", "message", kAlertDialog -> {
+//            kAlertDialog.dismiss();
+//        }, KAlertDialog.WARNING_TYPE);
+
+        showNumberInput();
 
     }
 
@@ -141,5 +148,42 @@ public class DemoSingleActivity extends BaseActivity<BaseMainActivityViewInterfa
                 .setTypeShowDialog(0)//0: both date and time - 1: date picker - 2: time picker
                 .build()
                 .show();
+    }
+
+    private void showNumberInput() {
+        InputNumberDialog.newInstance(new InputNumberDialog.DialogChoseNumberListener() {
+            @Override
+            public void onInputNumberReturn(double quantity, String note) {
+
+            }
+        }, "", 0, true).show(getSupportFragmentManager(), "Input");
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // overight customer alert
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm, int type) {
+        showConfirmAlert(title, mess, "", "", actionConfirm, null, type);
+    }
+
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int type) {
+        showConfirmAlert(title, mess, "", "", actionConfirm, actionCancel, type);
+    }
+
+    public void showConfirmAlert(String title, String mess, String titleButtonConfirm, String titleButtonCancel, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int type) {
+
+        switch (type) {
+            case KAlertDialog.SUCCESS_TYPE:
+                showCustomerImageAndBgButtonConfirmAlert(title, mess, titleButtonConfirm, R.drawable.alert_dialog_button_confirm_bg, titleButtonCancel, R.drawable.alert_dialog_button_cancel_bg, actionConfirm, actionCancel, R.drawable.ic_img_alert_success);
+                break;
+            case KAlertDialog.WARNING_TYPE:
+                showCustomerImageAndBgButtonConfirmAlert(title, mess, titleButtonConfirm, R.drawable.alert_dialog_button_confirm_bg, titleButtonCancel, R.drawable.alert_dialog_button_cancel_bg, actionConfirm, actionCancel, R.drawable.ic_img_alert_warning);
+                break;
+            case -1:
+                showCustomerImageAndBgButtonConfirmAlert(title, mess, titleButtonConfirm, R.drawable.alert_dialog_button_confirm_bg, titleButtonCancel, R.drawable.alert_dialog_button_cancel_bg, actionConfirm, actionCancel, R.drawable.ic_img_alert_warning_logout);
+                break;
+        }
+
     }
 }

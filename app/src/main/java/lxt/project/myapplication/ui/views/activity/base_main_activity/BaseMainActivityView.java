@@ -1,11 +1,16 @@
 package lxt.project.myapplication.ui.views.activity.base_main_activity;
 
 import android.graphics.Color;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
+import com.hk.kbottomnavigation.KBottomNavigation;
+import com.simform.custombottomnavigation.SSCustomBottomNavigation;
 
 import b.laixuantam.myaarlibrary.base.BaseUiContainer;
 import b.laixuantam.myaarlibrary.base.BaseView;
@@ -15,7 +20,10 @@ import b.laixuantam.myaarlibrary.widgets.bottomnavigationbar.BottomNavigationBar
 import b.laixuantam.myaarlibrary.widgets.touch_view_anim.scaletouchlistener.ScaleTouchListener;
 import b.laixuantam.myaarlibrary.widgets.tutorial.TutorialModel;
 import b.laixuantam.myaarlibrary.widgets.tutorial.TutorialView;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import lxt.project.myapplication.R;
+import lxt.project.myapplication.activity.DemoSingleActivity;
 import lxt.project.myapplication.activity.HomeActivity;
 import lxt.project.myapplication.dependency.AppProvider;
 import lxt.project.myapplication.model.UserResponseModel;
@@ -38,13 +46,17 @@ public class BaseMainActivityView extends BaseView<BaseMainActivityView.UIContai
                 callback.onClickButtonAlert();
             }
         });
+
+        configKBottomNavigation();
+        configSSCustomBottomNavigation();
     }
 
     @Override
     public void init(HomeActivity activity, HomeActivityViewCallback callback) {
         homeActivityViewCallback = callback;
         mPackageName = getContext().getApplicationInfo().packageName;
-        configBottomMenuBar();
+//        configBottomMenuBar();
+
     }
 
     @Override
@@ -100,9 +112,9 @@ public class BaseMainActivityView extends BaseView<BaseMainActivityView.UIContai
     public void reloadMenuNavigation() {
         UserResponseModel userResponseModel = AppProvider.getPreferences().getUserModel();
         if (userResponseModel != null) {
-            ui.bnb_menu_control.setTitleItem(4,userResponseModel.getFirst_name());
+            ui.bnb_menu_control.setTitleItem(4, userResponseModel.getFirst_name());
         } else {
-            ui.bnb_menu_control.setTitleItem(4,"Tôi");
+            ui.bnb_menu_control.setTitleItem(4, "Tôi");
         }
     }
 
@@ -179,6 +191,58 @@ public class BaseMainActivityView extends BaseView<BaseMainActivityView.UIContai
         if (ui.bnb_menu_control != null) {
             ui.bnb_menu_control.setSelectedPosition(pos);
         }
+    }
+
+    private void configSSCustomBottomNavigation() {
+        //https://github.com/SimformSolutionsPvtLtd/SSCustomBottomNavigation
+
+        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(1, R.drawable.ic_home, "Home"));
+        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(2, R.drawable.ic_notification, "Notify"));
+        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(3, R.drawable.ic_explore, "Explore"));
+
+        ui.layout_SSCustomBottomNavigation.setOnClickMenuListener(model -> {
+            switch (model.getId()) {
+                case 1:
+//                    Toast.makeText(getContext(), "Click Item 1", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+//                    Toast.makeText(getContext(), "Click Item 2", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+//                    Toast.makeText(getContext(), "Click Item 3", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+            return null;
+        });
+
+        ui.layout_SSCustomBottomNavigation.show(1, true);
+    }
+
+    private void configKBottomNavigation() {
+
+        //https://github.com/hamzaahmedkhan/KBottomNavigation
+        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(1, R.drawable.ic_home));
+        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(2, R.drawable.ic_notification));
+        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(3, R.drawable.ic_explore));
+
+        ui.layout_KBottomNavigation.setOnClickMenuListener(model -> {
+            switch (model.getId()) {
+                case 1:
+//                    Toast.makeText(getContext(), "Click Item 1", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+//                    Toast.makeText(getContext(), "Click Item 2", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+//                    Toast.makeText(getContext(), "Click Item 3", Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+            return null;
+        });
+
+        ui.layout_KBottomNavigation.show(1, true);
     }
 
     private void configBottomMenuBar() {
@@ -315,6 +379,14 @@ public class BaseMainActivityView extends BaseView<BaseMainActivityView.UIContai
 
         @UiElement(R.id.warning_confirm_test)
         public View warning_confirm_test;
+
+        @UiElement(R.id.layout_SSCustomBottomNavigation)
+        public SSCustomBottomNavigation layout_SSCustomBottomNavigation;
+
+        @UiElement(R.id.layout_KBottomNavigation)
+        public KBottomNavigation layout_KBottomNavigation;
+
+
 
     }
 }

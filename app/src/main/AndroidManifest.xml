@@ -46,6 +46,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.DemoSingleActivity">

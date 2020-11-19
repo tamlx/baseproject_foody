@@ -7,6 +7,7 @@ import java.util.Date;
 
 import b.laixuantam.myaarlibrary.base.BaseActivity;
 import b.laixuantam.myaarlibrary.base.BaseParameters;
+import b.laixuantam.myaarlibrary.widgets.dialog.alert.KAlertDialog;
 import b.laixuantam.myaarlibrary.widgets.slidedatetimepicker.SlideDateTimeListener;
 import b.laixuantam.myaarlibrary.widgets.slidedatetimepicker.SlideDateTimePicker;
 import b.laixuantam.myaarlibrary.widgets.ultils.ConvertDate;
@@ -90,7 +91,17 @@ public class DemoSingleActivity extends BaseActivity<BaseMainActivityViewInterfa
 
     @Override
     public void onClickButtonLeftActionbar() {
-
+        showCustomerImageConfirmAlert("title", "messanger", "", "", new KAlertDialog.KAlertClickListener() {
+            @Override
+            public void onClick(KAlertDialog kAlertDialog) {
+                kAlertDialog.dismiss();
+            }
+        }, new KAlertDialog.KAlertClickListener() {
+            @Override
+            public void onClick(KAlertDialog kAlertDialog) {
+                kAlertDialog.dismiss();
+            }
+        },R.drawable.logout);
     }
 
     @Override

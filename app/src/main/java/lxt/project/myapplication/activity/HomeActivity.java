@@ -90,7 +90,7 @@ import lxt.project.myapplication.ui.views.activity.base_main_activity.BaseMainAc
 import lxt.project.myapplication.ui.views.activity.base_main_activity.BaseMainActivityViewInterface;
 import lxt.project.myapplication.ui.views.activity.home_activity.HomeActivityViewCallback;
 
-public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInterface, BaseMainActionbarViewInterface, BaseParameters> implements BaseMainActionbarViewCallback, HomeActivityViewCallback, ActivityCompat.OnRequestPermissionsResultCallback, OnKeyboardVisibilityListener /*, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener */{
+public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInterface, BaseMainActionbarViewInterface, BaseParameters> implements BaseMainActionbarViewCallback, HomeActivityViewCallback, ActivityCompat.OnRequestPermissionsResultCallback, OnKeyboardVisibilityListener /*, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener */ {
 
     private static final String TAG = HomeActivity.class.getName();
     private LocationHelper locationHelper;
@@ -909,85 +909,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
             view.showBottomMenuBar();
     }
 
-    public void changeToFragmentDashboard() {
-        showToast("changeToFragmentDashboard");
-//        FullScreencall();
-//        isShowContainer = 0;
-//        showBottomMenuBar();
-//        replaceFragment(new FragmentDashboard(), false);
-    }
-
-    public void changeToFragmentLogin() {
-        view.hideBottomMenuBar();
-        isShowContainer++;
-        FullScreencall();
-        replaceFragment(new FragmentLogin(), true, Animation.SLIDE_IN_OUT);
-    }
-
-    public void changeToFragmentForgotPassword() {
-        FullScreencall();
-        isShowContainer++;
-        view.hideBottomMenuBar();
-
-        replaceFragment(new FragmentForgotPassword(), true, Animation.SLIDE_IN_OUT);
-    }
-
-    public void changeToFragmentRegister() {
-        view.hideBottomMenuBar();
-        FullScreencall();
-        addFragment(new FragmentRegister(), true, Animation.SLIDE_IN_OUT);
-    }
-
-
-    public void changeToFragmentMainMenu() {
-        showToast("changeToFragmentMainMenu");
-//        view.hideBottomMenuBar();
-//        FullScreencall();
-//        replaceFragment(new FragmentMainMenu(), false, Animation.SLIDE_IN_OUT);
-    }
-
-    public void changeToFragmentProfileManager() {
-        FullScreencall();
-        view.hideBottomMenuBar();
-        isShowContainer++;
-
-        replaceFragment(new FragmentProfileManager(), true, Animation.SLIDE_IN_OUT);
-
-    }
-
-    public void changeToFragmentProfileManager(String type_change) {
-        FullScreencall();
-        view.hideBottomMenuBar();
-        addFragment(FragmentProfileManager.newInstance(type_change), true, Animation.SLIDE_IN_OUT);
-
-    }
-
-    public void changeToFragmentPasswordManager() {
-        FullScreencall();
-        view.hideBottomMenuBar();
-        isShowContainer++;
-
-        replaceFragment(new FragmentPasswordManager(), true, Animation.SLIDE_IN_OUT);
-    }
-
-
-    //    private void showMenuTutorial() {
-//
-//        TutorialModel model = new TutorialModel(R.id.btnMenu, R.string.tutorial_menu, R.layout.view_tutorial_home_menu);
-//        model.setArrowBottom(false);
-//        view.showTutorial(model, new TutorialView.TutorialListener() {
-//            @Override
-//            public void onClose() {
-//                showHomeListTutorial();
-//            }
-//
-//            @Override
-//            public void onAction() {
-//            }
-//        });
-//    }
-
-
 //    private LocationRequest mLocationRequest;
 //    private FusedLocationProviderClient mFusedProviderClient;
 
@@ -1202,4 +1123,115 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
             }, KAlertDialog.WARNING_TYPE);
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // overight customer alert
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm, int type) {
+        showConfirmAlert(title, mess, "", "", actionConfirm, null, type);
+    }
+
+    public void showConfirmAlert(String title, String mess, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int type) {
+        showConfirmAlert(title, mess, "", "", actionConfirm, actionCancel, type);
+    }
+
+    public void showConfirmAlert(String title, String mess, String titleButtonConfirm, String titleButtonCancel, KAlertDialog.KAlertClickListener actionConfirm, KAlertDialog.KAlertClickListener actionCancel, int type) {
+
+        switch (type) {
+            case KAlertDialog.SUCCESS_TYPE:
+                showCustomerImageAndBgButtonConfirmAlert(title, mess, titleButtonConfirm, R.drawable.alert_dialog_button_confirm_bg, titleButtonCancel, R.drawable.alert_dialog_button_cancel_bg, actionConfirm, actionCancel, R.drawable.ic_img_alert_success);
+                break;
+            case KAlertDialog.WARNING_TYPE:
+                showCustomerImageAndBgButtonConfirmAlert(title, mess, titleButtonConfirm, R.drawable.alert_dialog_button_confirm_bg, titleButtonCancel, R.drawable.alert_dialog_button_cancel_bg, actionConfirm, actionCancel, R.drawable.ic_img_alert_warning);
+                break;
+            case -1:
+                showCustomerImageAndBgButtonConfirmAlert(title, mess, titleButtonConfirm, R.drawable.alert_dialog_button_confirm_bg, titleButtonCancel, R.drawable.alert_dialog_button_cancel_bg, actionConfirm, actionCancel, R.drawable.ic_img_alert_warning_logout);
+                break;
+        }
+
+    }
+
+    //    private void showMenuTutorial() {
+//
+//        TutorialModel model = new TutorialModel(R.id.btnMenu, R.string.tutorial_menu, R.layout.view_tutorial_home_menu);
+//        model.setArrowBottom(false);
+//        view.showTutorial(model, new TutorialView.TutorialListener() {
+//            @Override
+//            public void onClose() {
+//                showHomeListTutorial();
+//            }
+//
+//            @Override
+//            public void onAction() {
+//            }
+//        });
+//    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // MAIN FUCTION
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void changeToFragmentDashboard() {
+        showToast("changeToFragmentDashboard");
+//        FullScreencall();
+//        isShowContainer = 0;
+//        showBottomMenuBar();
+//        replaceFragment(new FragmentDashboard(), false);
+    }
+
+    public void changeToFragmentLogin() {
+        view.hideBottomMenuBar();
+        isShowContainer++;
+        FullScreencall();
+        replaceFragment(new FragmentLogin(), true, Animation.SLIDE_IN_OUT);
+    }
+
+    public void changeToFragmentForgotPassword() {
+        FullScreencall();
+        isShowContainer++;
+        view.hideBottomMenuBar();
+
+        replaceFragment(new FragmentForgotPassword(), true, Animation.SLIDE_IN_OUT);
+    }
+
+    public void changeToFragmentRegister() {
+        view.hideBottomMenuBar();
+        FullScreencall();
+        addFragment(new FragmentRegister(), true, Animation.SLIDE_IN_OUT);
+    }
+
+
+    public void changeToFragmentMainMenu() {
+        showToast("changeToFragmentMainMenu");
+//        view.hideBottomMenuBar();
+//        FullScreencall();
+//        replaceFragment(new FragmentMainMenu(), false, Animation.SLIDE_IN_OUT);
+    }
+
+    public void changeToFragmentProfileManager() {
+        FullScreencall();
+        view.hideBottomMenuBar();
+        isShowContainer++;
+
+        replaceFragment(new FragmentProfileManager(), true, Animation.SLIDE_IN_OUT);
+
+    }
+
+    public void changeToFragmentProfileManager(String type_change) {
+        FullScreencall();
+        view.hideBottomMenuBar();
+        addFragment(FragmentProfileManager.newInstance(type_change), true, Animation.SLIDE_IN_OUT);
+
+    }
+
+    public void changeToFragmentPasswordManager() {
+        FullScreencall();
+        view.hideBottomMenuBar();
+        isShowContainer++;
+
+        replaceFragment(new FragmentPasswordManager(), true, Animation.SLIDE_IN_OUT);
+    }
+
+
 }

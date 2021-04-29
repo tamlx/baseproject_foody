@@ -102,7 +102,7 @@ public class DemoSingleActivity extends BaseActivity<BaseMainActivityViewInterfa
             public void onClick(KAlertDialog kAlertDialog) {
                 kAlertDialog.dismiss();
             }
-        }, R.drawable.logout);
+        }, R.drawable.ic_img_alert_success);
     }
 
     @Override

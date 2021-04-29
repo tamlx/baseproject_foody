@@ -53,8 +53,6 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
     private final long DELAY = 1000; // in ms
     private Handler handler;
 
-    private String id_employee_tracking;
-
     public interface OptionSelectDialogListener {
 
         void onItemOptionSelected(OptionModel item);
@@ -142,6 +140,7 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
         loadingView = dialoglayout.findViewById(R.id.loadingView);
         layoutRootView = dialoglayout.findViewById(R.id.layoutRootView);
 
+        View layoutSearch = dialoglayout.findViewById(R.id.layoutSearch);
         edtSearch = dialoglayout.findViewById(R.id.edtSearch);
 
         layoutRootView.setOnTouchListener(new View.OnTouchListener() {
@@ -160,9 +159,9 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
             }
         });
         if (showFilter)
-            edtSearch.setVisibility(View.VISIBLE);
+            layoutSearch.setVisibility(View.VISIBLE);
         else
-            edtSearch.setVisibility(View.GONE);
+            layoutSearch.setVisibility(View.GONE);
 
         edtSearch.setHint(titleHintFilter);
 
@@ -174,7 +173,7 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (typeDialog == DialogType.FILTER_SELECT_PRODUCT || typeDialog == DialogType.FILTER_SELECT_CUSTOMER || typeDialog == DialogType.FILTER_SELECT_TASK) {
+                if (typeDialog == DialogType.FILTER_SELECT_PRODUCT || typeDialog == DialogType.FILTER_SELECT_CUSTOMER) {
                     if (timer != null)
                         timer.cancel();
                 }
@@ -200,8 +199,6 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
                                     requestGetListProduct(key);
                                 else if (typeDialog == DialogType.FILTER_SELECT_CUSTOMER)
                                     requestGetListCustomer(key);
-                                else if (typeDialog == DialogType.FILTER_SELECT_TASK)
-                                    requestGetListTask(key);
                                 else if (typeDialog == DialogType.FILTER_SELECT_EMPLOYEE)
                                     requestGetListEmployee(key);
                             }
@@ -212,8 +209,6 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
                             requestGetListProduct("");
                         else if (typeDialog == DialogType.FILTER_SELECT_CUSTOMER)
                             requestGetListCustomer("");
-                        else if (typeDialog == DialogType.FILTER_SELECT_TASK)
-                            requestGetListTask("");
                         else if (typeDialog == DialogType.FILTER_SELECT_EMPLOYEE)
                             requestGetListEmployee("");
                     }
@@ -237,7 +232,7 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
             }
         });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.dongy), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (isSelectedMulti) {
@@ -273,9 +268,8 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (typeDialog == DialogType.FILTER_SELECT_TASK)
-            requestGetListTask("");
-
+//        if (typeDialog == DialogType.FILTER_SELECT_CUSTOMER)
+//            requestGetListCustomer("");
 
         super.onActivityCreated(savedInstanceState);
     }
@@ -314,7 +308,6 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
         SELECT_DEFAULT,
         FILTER_SELECT_PRODUCT,
         FILTER_SELECT_EMPLOYEE,
-        FILTER_SELECT_TASK,
         FILTER_SELECT_CUSTOMER
     }
 
@@ -537,88 +530,6 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
 //        });
     }
 
-    private void requestGetListTask(String string_filter) {
-
-        clearDataList();
-
-//        if (TextUtils.isEmpty(string_filter)) {
-//            showEmptyList();
-//            return;
-//        }
-
-        if (!AppProvider.getConnectivityHelper().hasInternetConnection()) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getContext(), getString(R.string.error_connect_internet), Toast.LENGTH_SHORT).show();
-                }
-            });
-            return;
-        }
-
-        showLoadingView();
-
-//        RequestGetListTask.ApiParam params = new RequestGetListTask.ApiParam();
-//
-//        if (!TextUtils.isEmpty(string_filter)) {
-//            params.filter = string_filter;
-//        }
-//        if (!TextUtils.isEmpty(id_employee_tracking)) {
-//            params.id_employee = id_employee_tracking;
-//        }
-//        params.page = String.valueOf(1);
-//        params.limit = "20";
-//
-//        AppProvider.getApiManagement().call(RequestGetListTask.class, params, new ApiRequest.ApiCallback<BaseResponseModel<TaskModel>>() {
-//            @Override
-//            public void onSuccess(BaseResponseModel<TaskModel> result) {
-//                hideLoadingView();
-//                if (!TextUtils.isEmpty(result.getSuccess()) && Objects.requireNonNull(result.getSuccess()).equalsIgnoreCase("true")) {
-//
-//                    if (result.getData() != null && result.getData().length > 0) {
-//                        hideEmptyList();
-//
-//                        for (TaskModel itemTask : result.getData()) {
-//                            OptionModel itemModel = new OptionModel();
-//                            itemModel.setTitle(itemTask.getJob_tracking());
-//                            itemModel.setOptionType(OptionModel.OptionType.CUSTOM_TYPE_TASK);
-//                            itemModel.setDtaCustom(itemTask);
-//
-//                            data.add(itemModel);
-//                        }
-//
-//
-//                        handler.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                setupListData();
-//                            }
-//                        });
-//
-//
-//                    } else {
-//                        showEmptyList();
-//                    }
-//
-//                } else {
-//                    showEmptyList();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(ErrorApiResponse error) {
-//                hideLoadingView();
-//                showEmptyList();
-//            }
-//
-//            @Override
-//            public void onFail(ApiRequest.RequestError error) {
-//                hideLoadingView();
-//                showEmptyList();
-//            }
-//        });
-    }
-
     private void requestGetListEmployee(String string_filter) {
         clearDataList();
 
@@ -712,10 +623,6 @@ public class OptionSelectDialog extends AppDialog<OptionSelectDialog.OptionSelec
             });
 
         }
-    }
-
-    public void setId_employee_tracking(String id_employee_tracking) {
-        this.id_employee_tracking = id_employee_tracking;
     }
 
     private void setupListData() {

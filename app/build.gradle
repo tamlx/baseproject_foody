@@ -90,23 +90,15 @@ dependencies {
 //    implementation 'com.github.h6ah4i:android-advancedrecyclerview:develop-SNAPSHOT'
 
     //google-service
-//    implementation 'com.google.android.gms:play-services-auth:10.2.1'
     //map library
-//    implementation 'com.google.android.gms:play-services-maps:10.2.1'
-//    implementation 'com.google.android.gms:play-services-location:10.2.4'
-
+//    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+//    implementation 'com.google.android.gms:play-services-location:18.0.+'
     //google-filebase
 //map library
-//    implementation 'com.google.android.gms:play-services-maps:16.0.+'
-//    implementation 'com.google.android.gms:play-services-location:16.0.+'
 //    implementation 'com.google.android.libraries.places:places:1.1.0'
-//    implementation 'com.google.android.gms:play-services-places:16.0.0'
-//    implementation 'com.google.android.gms:play-services-auth:16.0.0'
-
-//    implementation 'com.google.android.libraries.places:places:2.0.0'
+//    implementation 'com.google.android.gms:play-services-places:17.0.0'
 
     //google-filebase
-    implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-auth'
     implementation platform('com.google.firebase:firebase-bom:26.7.0')

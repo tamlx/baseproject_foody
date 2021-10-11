@@ -85,4 +85,5 @@
     <color name="grey_200">#EEEEEE</color>
     <color name="yellow">#ffea00</color>
     <color name="button_background" tools:ignore="MissingDefaultResource">#023373</color>
+    <color name="bg_placeholder">#dddddd</color>
 </resources>

@@ -9,8 +9,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.hk.kbottomnavigation.KBottomNavigation;
-import com.simform.custombottomnavigation.SSCustomBottomNavigation;
+//import com.hk.kbottomnavigation.KBottomNavigation;
+//import com.simform.custombottomnavigation.SSCustomBottomNavigation;
 
 import b.laixuantam.myaarlibrary.base.BaseUiContainer;
 import b.laixuantam.myaarlibrary.base.BaseView;
@@ -196,53 +196,53 @@ public class BaseMainActivityView extends BaseView<BaseMainActivityView.UIContai
     private void configSSCustomBottomNavigation() {
         //https://github.com/SimformSolutionsPvtLtd/SSCustomBottomNavigation
 
-        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(1, R.drawable.ic_home, "Home"));
-        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(2, R.drawable.ic_notification, "Notify"));
-        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(3, R.drawable.ic_explore, "Explore"));
-
-        ui.layout_SSCustomBottomNavigation.setOnClickMenuListener(model -> {
-            switch (model.getId()) {
-                case 1:
-//                    Toast.makeText(getContext(), "Click Item 1", Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
-//                    Toast.makeText(getContext(), "Click Item 2", Toast.LENGTH_SHORT).show();
-                    break;
-                case 3:
-//                    Toast.makeText(getContext(), "Click Item 3", Toast.LENGTH_SHORT).show();
-                    break;
-
-            }
-            return null;
-        });
-
-        ui.layout_SSCustomBottomNavigation.show(1, true);
+//        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(1, R.drawable.ic_home, "Home"));
+//        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(2, R.drawable.ic_notification, "Notify"));
+//        ui.layout_SSCustomBottomNavigation.add(new SSCustomBottomNavigation.Model(3, R.drawable.ic_explore, "Explore"));
+//
+//        ui.layout_SSCustomBottomNavigation.setOnClickMenuListener(model -> {
+//            switch (model.getId()) {
+//                case 1:
+////                    Toast.makeText(getContext(), "Click Item 1", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 2:
+////                    Toast.makeText(getContext(), "Click Item 2", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 3:
+////                    Toast.makeText(getContext(), "Click Item 3", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//            }
+//            return null;
+//        });
+//
+//        ui.layout_SSCustomBottomNavigation.show(1, true);
     }
 
     private void configKBottomNavigation() {
 
         //https://github.com/hamzaahmedkhan/KBottomNavigation
-        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(1, R.drawable.ic_home));
-        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(2, R.drawable.ic_notification));
-        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(3, R.drawable.ic_explore));
-
-        ui.layout_KBottomNavigation.setOnClickMenuListener(model -> {
-            switch (model.getId()) {
-                case 1:
-//                    Toast.makeText(getContext(), "Click Item 1", Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
-//                    Toast.makeText(getContext(), "Click Item 2", Toast.LENGTH_SHORT).show();
-                    break;
-                case 3:
-//                    Toast.makeText(getContext(), "Click Item 3", Toast.LENGTH_SHORT).show();
-                    break;
-
-            }
-            return null;
-        });
-
-        ui.layout_KBottomNavigation.show(1, true);
+//        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(1, R.drawable.ic_home));
+//        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(2, R.drawable.ic_notification));
+//        ui.layout_KBottomNavigation.add(new KBottomNavigation.Model(3, R.drawable.ic_explore));
+//
+//        ui.layout_KBottomNavigation.setOnClickMenuListener(model -> {
+//            switch (model.getId()) {
+//                case 1:
+////                    Toast.makeText(getContext(), "Click Item 1", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 2:
+////                    Toast.makeText(getContext(), "Click Item 2", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 3:
+////                    Toast.makeText(getContext(), "Click Item 3", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//            }
+//            return null;
+//        });
+//
+//        ui.layout_KBottomNavigation.show(1, true);
     }
 
     private void configBottomMenuBar() {
@@ -380,11 +380,11 @@ public class BaseMainActivityView extends BaseView<BaseMainActivityView.UIContai
         @UiElement(R.id.warning_confirm_test)
         public View warning_confirm_test;
 
-        @UiElement(R.id.layout_SSCustomBottomNavigation)
-        public SSCustomBottomNavigation layout_SSCustomBottomNavigation;
-
-        @UiElement(R.id.layout_KBottomNavigation)
-        public KBottomNavigation layout_KBottomNavigation;
+//        @UiElement(R.id.layout_SSCustomBottomNavigation)
+//        public SSCustomBottomNavigation layout_SSCustomBottomNavigation;
+//
+//        @UiElement(R.id.layout_KBottomNavigation)
+//        public KBottomNavigation layout_KBottomNavigation;
 
 
 

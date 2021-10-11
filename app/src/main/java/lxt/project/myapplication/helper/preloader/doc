@@ -1,0 +1,261 @@
+-------------- call preload in Activity/Fragment ---------------------------
+//https://github.com/luckybilly/PreLoader
+private int preLoaderId = -1;
+
+initialize(){
+..
+    //pre_load_before_page
+    if (getArguments() != null) {
+            preLoaderId = getArguments().getInt("preLoaderId", -1);
+        }
+    initPreLoader();
+..
+}
+
+private PreLoaderWrapper<BaseResponseModel<UserResponseModel>> preLoader;
+private int firstRequestPreload = 1;
+
+private void initPreLoader() {
+        if (preLoaderId > 0) {
+        //pre_load_before_page
+//            PreLoader.listenData(preLoaderId
+//                    , new DataHolder1()
+//                    , new DataHolder2()
+//            );
+            PreLoader.listenData(preLoaderId, new DataHolder1());
+//            PreLoader.listenData(preLoaderId, new DataHolder2());
+        } else {
+
+            //pre_load_inside_page
+            preLoader = preLoad();
+            preLoader.listenData();
+        }
+        showProgress();
+}
+-------------------------------- pre_load_inside_page ----------------------------------------------
+    private PreLoaderWrapper<BaseResponseModel<UserResponseModel>> preLoad() {
+        return PreLoader.just(new Loader(), new Listener());
+    }
+
+    class Loader implements DataLoader<BaseResponseModel<UserResponseModel>> {
+        BaseResponseModel<UserResponseModel> myResult = null;
+
+        @Override
+        public BaseResponseModel<UserResponseModel> loadData() {
+
+            if (!AppProvider.getConnectivityHelper().hasInternetConnection()) {
+                return myResult;
+            }
+            AccountManagerRequest.ApiParams params = new AccountManagerRequest.ApiParams();
+            params.type_manager = "list_account";
+            params.page = String.valueOf(page);
+            AppProvider.getApiManagement().call(AccountManagerRequest.class, params, new ApiRequest.ApiCallback<BaseResponseModel<UserResponseModel>>() {
+                @Override
+                public void onSuccess(BaseResponseModel<UserResponseModel> result) {
+                    myResult = result;
+                }
+
+                @Override
+                public void onError(ErrorApiResponse error) {
+                }
+
+                @Override
+                public void onFail(ApiRequest.RequestError error) {
+                }
+            });
+
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException ignored) {
+            }
+            return myResult;
+        }
+    }
+
+    class Listener implements DataListener<BaseResponseModel<UserResponseModel>> {
+
+        @Override
+        public void onDataArrived(BaseResponseModel<UserResponseModel> result) {
+            dismissProgress();
+            if (firstRequestPreload == 1 && result == null) {
+                firstRequestPreload = 0;
+                preLoader.refresh();
+                return;
+            }
+            if (result != null && !TextUtils.isEmpty(result.getSuccess()) && result.getSuccess().equalsIgnoreCase("true")) {
+
+                if (!TextUtils.isEmpty(result.getTotal_page())) {
+                    totalPage = Integer.valueOf(result.getTotal_page());
+                    if (page == totalPage) {
+                        view.setNoMoreLoading();
+                    }
+                } else {
+                    view.setNoMoreLoading();
+                }
+                view.setDataList(result);
+            } else {
+                if (!TextUtils.isEmpty(result.getMessage()))
+                    showAlert(result.getMessage(), KAlertDialog.ERROR_TYPE);
+                else
+                    showAlert("Không thể tải dữ liệu.", KAlertDialog.ERROR_TYPE);
+            }
+        }
+    }
+
+-------------------------------- pre_load_before_page (CALL)----------------------------------------------
+private int preLoadForNextActivity() {
+        // load data before activity launch
+        // use PreLoaderPool to do this work
+        return PreLoader.preLoad(new LoaderListAccount());
+    }
+
+    class LoaderListAccount implements DataLoader<BaseResponseModel<UserResponseModel>> {
+        BaseResponseModel<UserResponseModel> myResult = null;
+
+        @Override
+        public BaseResponseModel<UserResponseModel> loadData() {
+
+            if (!AppProvider.getConnectivityHelper().hasInternetConnection()) {
+                return myResult;
+            }
+            AccountManagerRequest.ApiParams params = new AccountManagerRequest.ApiParams();
+            params.type_manager = "list_account";
+            params.page = String.valueOf(1);
+            AppProvider.getApiManagement().call(AccountManagerRequest.class, params, new ApiRequest.ApiCallback<BaseResponseModel<UserResponseModel>>() {
+                @Override
+                public void onSuccess(BaseResponseModel<UserResponseModel> result) {
+                    myResult = result;
+                }
+
+                @Override
+                public void onError(ErrorApiResponse error) {
+                }
+
+                @Override
+                public void onFail(ApiRequest.RequestError error) {
+                }
+            });
+
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException ignored) {
+            }
+            return myResult;
+        }
+    }
+
+---------------------------------- pre_load_before_page (Listener)--------------------------------------------
+    class DataHolder1 implements DataListener<BaseResponseModel<UserResponseModel>> {
+        @Override
+        public void onDataArrived(BaseResponseModel<UserResponseModel> result) {
+            dismissProgress();
+            if (result != null && !TextUtils.isEmpty(result.getSuccess()) && result.getSuccess().equalsIgnoreCase("true")) {
+
+                if (!TextUtils.isEmpty(result.getTotal_page())) {
+                    totalPage = Integer.valueOf(result.getTotal_page());
+                    if (page == totalPage) {
+                        view.setNoMoreLoading();
+                    }
+                } else {
+                    view.setNoMoreLoading();
+                }
+                view.setDataList(result);
+            } else {
+                view.setDataList(null);
+            }
+        }
+    }
+
+-------------------------------- pre_load_before_button_click (CALL)--------------------------------------------
+//start pre-loader for PreLoadBeforeLaunchActivity
+        preLoadBeforeButtonClickId = preLoadForNextActivity();
+
+-------------------------------- pre_load_group_before_page (CALL)----------------------------------------------
+ intent = new Intent(this, PreLoadGroupBeforeLaunchActivity.class);
+                //start pre-loader for PreLoadBeforeLaunchActivity
+                intent.putExtra("preLoaderId", preLoadGroupForNextActivity());
+                intent.putExtra("option", 1);
+                startActivity(intent);
+
+ private int preLoadGroupForNextActivity() {
+         // load a group data before activity launch
+         // use PreLoaderPool to do this work
+         return PreLoader.preLoad(new Loader1(), new Loader2());
+     }
+
+    class Loader1 implements GroupedDataLoader<String> {
+         @Override
+         public String loadData() {
+             TimeWatcher timeWatcher = TimeWatcher.obtainAndStart("GroupedDataLoader1 load data");
+             try {
+                 Thread.sleep(600);
+             } catch (InterruptedException ignored) {
+             }
+             return timeWatcher.stopAndPrint();
+         }
+
+         @Override
+         public String keyInGroup() {
+             return "loader1";
+         }
+     }
+
+     class Loader2 implements GroupedDataLoader<String> {
+         @Override
+         public String loadData() {
+             TimeWatcher timeWatcher = TimeWatcher.obtainAndStart("GroupedDataLoader2 load data");
+             try {
+                 Thread.sleep(400);
+             } catch (InterruptedException ignored) {
+             }
+             return timeWatcher.stopAndPrint();
+         }
+
+         @Override
+         public String keyInGroup() {
+             return "loader2";
+         }
+     }
+
+---------------------------------- pre_load_group_before_page (Listener)--------------------------------------------
+
+class DataHolder1 implements GroupedDataListener<String> {
+        @Override
+        public void onDataArrived(String data) {
+            //总耗时结束
+            String s = allTime.stopAndPrint();
+            logTextView.append(data + "\n" + s + "\n");
+        }
+
+        @Override
+        public String keyInGroup() {
+            return "loader1";
+        }
+    }
+    class DataHolder2 implements GroupedDataListener<String> {
+        @Override
+        public void onDataArrived(String data) {
+            //总耗时结束
+            String s = allTime.stopAndPrint();
+            logTextView.append(data + "\n" + s + "\n");
+        }
+
+        @Override
+        public String keyInGroup() {
+            return "loader2";
+        }
+    }
+
+
+---------------------------------- onDestroy --------------------------------------------
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (preLoaderId > 0) {
+            PreLoader.destroy(preLoaderId);
+        }else{
+            if(preLoader != null){
+                preLoader.destroy();
+            }
+        }
+    }

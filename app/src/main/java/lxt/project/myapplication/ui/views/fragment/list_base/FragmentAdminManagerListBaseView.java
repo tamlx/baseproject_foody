@@ -2,6 +2,7 @@ package lxt.project.myapplication.ui.views.fragment.list_base;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -30,6 +31,7 @@ import b.laixuantam.myaarlibrary.widgets.popupmenu.ActionItem;
 import b.laixuantam.myaarlibrary.widgets.popupmenu.MyCustomPopupMenu;
 import lxt.project.myapplication.R;
 import lxt.project.myapplication.activity.HomeActivity;
+import lxt.project.myapplication.adapter.OptionListAdapter;
 import lxt.project.myapplication.dialog.option.OptionModel;
 import lxt.project.myapplication.model.BaseResponseModel;
 
@@ -37,13 +39,14 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
 
     private HomeActivity activity;
     private FragmentAdminManagerListBaseViewCallback callback;
-//    private OrderFilterManagerAdapter orderManagerAdapter;
+    private OptionListAdapter optionListAdapter;
     private RecyclerAdapterWithHF recyclerAdapterWithHF;
     private ArrayList<OptionModel> listDatas = new ArrayList<>();
     private Timer timer = new Timer();
     private final long DELAY = 1000; // in ms
     private boolean isRefreshList = false;
     private String order_status, filter_string;
+    private OptionListAdapter.OptionListType listType = OptionListAdapter.OptionListType.DEFAULT;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -53,10 +56,7 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
 
         KeyboardUtils.setupUI(getView(), activity);
 
-        ui.tvTitleHeader.setText("Quản lý giao dịch");
-
-        setGone(ui.actionAdd);
-        setVisible(ui.actionFilter);
+        ui.tvTitleHeader.setText("List Title");
 
         ui.btnBackHeader.setOnClickListener(view -> {
             if (callback != null)
@@ -64,7 +64,7 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
         });
 
         ui.actionFilter.setOnClickListener(view -> {
-            showDialogSelectOrderStatus();
+//            showDialogSelectOrderStatus();
         });
 
         ui.edit_filter_.addTextChangedListener(new TextWatcher() {
@@ -93,9 +93,9 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
                                 public void run() {
                                     AppUtils.hideKeyBoard(getView());
                                     listDatas.clear();
-//                                    orderManagerAdapter.notifyDataSetChanged();
+                                    recyclerAdapterWithHF.notifyDataSetChanged();
                                     ui.recycler_view_list_.getRecycledViewPool().clear();
-                                    callback.onRequestSearchWithFilter(order_status, key);
+                                    callback.onRequestSearchWithFilter("", key);
                                 }
                             });
                         }
@@ -105,16 +105,15 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
                     if (!isRefreshList) {
                         AppUtils.hideKeyBoard(getView());
                         listDatas.clear();
-//                        orderManagerAdapter.notifyDataSetChanged();
+                        recyclerAdapterWithHF.notifyDataSetChanged();
                         ui.recycler_view_list_.getRecycledViewPool().clear();
-                        callback.onRequestSearchWithFilter(order_status, "");
+                        callback.onRequestSearchWithFilter("", "");
                     }
                 }
             }
         });
 
-        initOrderStatusFilter();
-        setUpListData();
+//        initOrderStatusFilter();
     }
 
     @Override
@@ -129,26 +128,34 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
         setVisible(ui.ptrClassicFrameLayout);
     }
 
+    @Override
+    public void setDataListType(OptionListAdapter.OptionListType listType) {
+        this.listType = listType;
+//        if (listType == OptionListAdapter.OptionListType.LIST_CUSTOMER_LOAN) {
+//            ui.tvHeaderLable.setText("Khoản vay");
+//        } else if (listType == OptionListAdapter.OptionListType.LIST_CUSTOMER) {
+//            ui.tvHeaderLable.setText("Khách hàng");
+//        }
+//        ui.edit_filter_.setHint("Số điện thoại");
+//        ui.edit_filter_.setInputType(InputType.TYPE_CLASS_PHONE);
+        setUpListData();
+    }
+
     private void setUpListData() {
         ui.recycler_view_list_.getRecycledViewPool().clear();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         ui.recycler_view_list_.setLayoutManager(linearLayoutManager);
 
-        //todo setup list with adapter
+        optionListAdapter = new OptionListAdapter(getContext(), listDatas, listType);
 
-//        orderManagerAdapter = new OrderFilterManagerAdapter(getContext(), listDatas);
-//
-//        orderManagerAdapter.setListener(new OrderFilterManagerAdapter.OrderFilterManagerAdapterListener() {
-//            @Override
-//            public void onItemOrderSelected(OrderModel item, View itemView, int position) {
-//                if (callback != null)
-//                    callback.showDetailOrder(item);
-//            }
-//
-//        });
+        optionListAdapter.setListener((item, pos) -> {
+            if (callback != null)
+                callback.onItemListSelected(item);
 
-//        recyclerAdapterWithHF = new RecyclerAdapterWithHF(orderManagerAdapter);
+        });
+
+        recyclerAdapterWithHF = new RecyclerAdapterWithHF(optionListAdapter);
 
         ui.recycler_view_list_.setAdapter(recyclerAdapterWithHF);
 
@@ -159,9 +166,9 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
             public void onRefreshBegin(PtrFrameLayout frame) {
                 AppUtils.hideKeyBoard(getView());
                 isRefreshList = true;
-//                ui.edit_filter_transaction.setText("");
+                ui.edit_filter_.setText("");
                 listDatas.clear();
-//                orderManagerAdapter.notifyDataSetChanged();
+                optionListAdapter.notifyDataSetChanged();
                 ui.recycler_view_list_.getRecycledViewPool().clear();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -179,29 +186,19 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
             }
         });
 
-        ui.ptrClassicFrameLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+        ui.ptrClassicFrameLayout.setOnLoadMoreListener(() -> handler.postDelayed(() -> {
 
-            @Override
-            public void loadMore() {
-                handler.postDelayed(new Runnable() {
+            if (callback != null)
+                callback.onRequestLoadMoreList();
 
-                    @Override
-                    public void run() {
-
-                        if (callback != null)
-                            callback.onRequestLoadMoreList();
-
-                    }
-                }, 100);
-            }
-        });
+        }, 100));
     }
 
     @Override
-    public void setDataList(BaseResponseModel arrDatas) {
+    public void setDataList(BaseResponseModel resultDatas) {
         ui.recycler_view_list_.getRecycledViewPool().clear();
 
-        if (arrDatas.getData() == null || arrDatas.getData().length == 0) {
+        if (resultDatas == null || resultDatas.getData() == null || resultDatas.getData().length == 0) {
             if (listDatas.size() == 0)
                 showEmptyList();
             return;
@@ -209,7 +206,24 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
 
         hideEmptyList();
 
-//        listDatas.addAll(Arrays.asList(arrDatas));
+//        if (listType == OptionListAdapter.OptionListType.LIST_CUSTOMER) {
+//            CustomerByEmployeeModel[] arrDataListCustomer = (CustomerByEmployeeModel[]) resultDatas.getData();
+//            for (CustomerByEmployeeModel itemCustomer : arrDataListCustomer) {
+//                OptionModel itemModel = new OptionModel();
+//                itemModel.setTitle(itemCustomer.getCustomer_fullname());
+//                itemModel.setDtaCustom(itemCustomer);
+//                listDatas.add(itemModel);
+//            }
+//        } else if (listType == OptionListAdapter.OptionListType.LIST_CUSTOMER_LOAN) {
+//            CustomerLoanModel[] arrDataListCustomerLoan = (CustomerLoanModel[]) resultDatas.getData();
+//            for (CustomerLoanModel itemCustomerLoan : arrDataListCustomerLoan) {
+//                OptionModel itemModel = new OptionModel();
+//                itemModel.setTitle(itemCustomerLoan.getCustomer_fullname());
+//                itemModel.setDtaCustom(itemCustomerLoan);
+//                listDatas.add(itemModel);
+//            }
+//        }
+
 
         recyclerAdapterWithHF.notifyDataSetChanged();
         ui.ptrClassicFrameLayout.loadMoreComplete(true);
@@ -225,7 +239,7 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
     @Override
     public void resetListData() {
         listDatas.clear();
-//        orderManagerAdapter.notifyDataSetChanged();
+        recyclerAdapterWithHF.notifyDataSetChanged();
         ui.recycler_view_list_.getRecycledViewPool().clear();
     }
 
@@ -297,11 +311,6 @@ public class FragmentAdminManagerListBaseView extends BaseView<FragmentAdminMana
         });
 
         quickAction.show(view);
-    }
-
-    @Override
-    public void clearListData() {
-
     }
 
     @Override

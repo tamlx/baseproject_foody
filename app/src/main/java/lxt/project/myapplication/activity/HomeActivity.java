@@ -3,16 +3,17 @@ package lxt.project.myapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.location.Address;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Looper;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 
@@ -42,24 +44,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.gms.tasks.Task;
-
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import b.laixuantam.myaarlibrary.base.BaseFragment;
 import b.laixuantam.myaarlibrary.base.BaseFragmentActivity;
 import b.laixuantam.myaarlibrary.base.BaseParameters;
 import b.laixuantam.myaarlibrary.event.GetCurrentPositionSuccess;
-import b.laixuantam.myaarlibrary.helper.MyLog;
 import b.laixuantam.myaarlibrary.helper.OnKeyboardVisibilityListener;
 import b.laixuantam.myaarlibrary.helper.map.location.LocationHelper;
 import b.laixuantam.myaarlibrary.helper.map.location.PermissionUtils;
@@ -75,12 +74,12 @@ import lxt.project.myapplication.event.AlertCheckUserRolePermissionEvent;
 import lxt.project.myapplication.event.KeyboardInEvent;
 import lxt.project.myapplication.event.KeyboardOutEvent;
 import lxt.project.myapplication.event.ReloadMenuBottomEvent;
-import lxt.project.myapplication.event.RequestLoginWithGoogleEvent;
 import lxt.project.myapplication.fragment.account.forgot_password.FragmentForgotPassword;
 import lxt.project.myapplication.fragment.account.login.FragmentLogin;
 import lxt.project.myapplication.fragment.account.password_manager.FragmentPasswordManager;
 import lxt.project.myapplication.fragment.account.profile_manager.FragmentProfileManager;
 import lxt.project.myapplication.fragment.account.register.FragmentRegister;
+import lxt.project.myapplication.fragment.demo.collapsinglayout.FragmentCollapsingDemo;
 import lxt.project.myapplication.helper.Consts;
 import lxt.project.myapplication.model.UserResponseModel;
 import lxt.project.myapplication.ui.views.action_bar.base_main_actionbar.BaseMainActionbarView;
@@ -107,8 +106,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 //                .enableAutoManage(this/* FragmentActivity */, this /* OnConnectionFailedListener */)
 //                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
 //                .build();
-
-        FullScreencall();
 
         view.init(this, this);
         view.configLayoutBaseMainFragmentActivity();
@@ -147,8 +144,8 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 //            changeToFragmentDashboard();
 //        }
 
-        changeToFragmentLogin();
-
+//        changeToFragmentLogin();
+        changeToFragmentDemoCollapsing();
 
     }
 
@@ -202,15 +199,21 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 
 
     public void FullScreencall() {
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-            View v = this.getWindow().getDecorView();
-            v.setSystemUiVisibility(View.GONE);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            //for new api versions.
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
+
+        //hide status bar
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //hide bottom
+//        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+//            View v = this.getWindow().getDecorView();
+//            v.setSystemUiVisibility(View.GONE);
+//        } else if (Build.VERSION.SDK_INT >= 19) {
+//            //for new api versions.
+//            View decorView = getWindow().getDecorView();
+//            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+//            decorView.setSystemUiVisibility(uiOptions);
+//        }
     }
 
     //Override custom toolbar when set @style/AppTheme.NoActionBar in manifest
@@ -268,7 +271,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     private int isShowContainer = 0;
 
     public void checkBack() {
-        FullScreencall();
 
         if (isShowContainer > 0) {
             isShowContainer--;
@@ -294,9 +296,9 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
             checkFragment();
         }
         UserResponseModel userResponseModel = AppProvider.getPreferences().getUserModel();
-        if (userResponseModel != null && !userResponseModel.getAccount_level().equalsIgnoreCase("normal")) {
-            hideBottomMenuBar();
-        }
+//        if (userResponseModel != null && !userResponseModel.getAccount_level().equalsIgnoreCase("normal")) {
+//            hideBottomMenuBar();
+//        }
     }
 
     private void checkFragment() {
@@ -491,7 +493,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
                         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                         StrictMode.setVmPolicy(builder.build());
 
-                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
                     } else {
                         showAlert(getString(R.string.error_load_file_image), KAlertDialog.ERROR_TYPE);
@@ -562,7 +563,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                 StrictMode.setVmPolicy(builder.build());
 
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {
                 showAlert(getString(R.string.error_load_file_image), KAlertDialog.ERROR_TYPE);
@@ -573,19 +573,35 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     }
 
     private File createMediaFile() throws IOException {
+        boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+
+        if (isSDSupportedDevice && isSDPresent) {
+            // yes SD-card is present
+        } else {
+            // Sorry
+        }
+
         // Create an image file name
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File mediaFile;
 
         String rootPath = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/529FTN_Images/";
-        File root = new File(rootPath);
+                .getAbsolutePath() + "/Project_Images/";
+
+//        File root = new File(rootPath);
+        //imagePath /storage/emulated/0/MB247_Images/SIGNATURE_20211203_171402_346958538.jpg
+
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        //imagePath /data/user/0/mb247.project.myapplication/app_media/SIGNATURE_20211203_171155_11320869.jpg
+
+        File root = (isSDSupportedDevice && isSDPresent) ? new File(rootPath) : cw.getDir("media", Context.MODE_PRIVATE);
+
         if (!root.exists()) {
             root.mkdirs();
         }
-//        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String fileName = "JPEG_" + timeStamp + "_";
+        String fileName = "SIGNATURE_" + timeStamp + "_";
         mediaFile = File.createTempFile(fileName,  // prefix
                 ".jpg",         // suffix
                 root      // directory
@@ -595,9 +611,22 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     }
 
     public void deleteTempMedia() {
+        boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+
+        if (isSDSupportedDevice && isSDPresent) {
+            // yes SD-card is present
+        } else {
+            // Sorry
+        }
+
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+
         String rootPath = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/529FTN_Images/";
-        File root = new File(rootPath);
+                .getAbsolutePath() + "/Project_Images/";
+
+        File root = (isSDSupportedDevice && isSDPresent) ? new File(rootPath) : cw.getDir("media", Context.MODE_PRIVATE);
+
         if (root.exists()) {
             String[] children = root.list();
             if (children != null && children.length > 0) {
@@ -627,17 +656,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
                 return;
             }
         }
-
-//        if (requestCode == FragmentEmployeeTaskDetail.REQUEST_CHECK_SETTINGS) {
-//            if (resultCode == RESULT_OK) {
-////                if (fragment instanceof FragmentEmployeeTaskDetail) {
-////                    ((FragmentEmployeeTaskDetail) fragment).startStep1();
-////                }
-//                return;
-//            } else {
-//                return;
-//            }
-//        }
 
         if (requestCode == RC_SIGN_IN) {
 //            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -677,7 +695,19 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
             }
         } else if (requestCode == CAMERA_REQUEST) {
             if (resultCode == RESULT_OK) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                try (FileOutputStream out = new FileOutputStream(photoFile)) {
+                    photo.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                    // PNG is a lossless format, the compression factor (100) is ignored
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
+                    }
+                }, 500);
 //                if (fragment instanceof FragmentProfileManager) {
 //                    if (photoFile != null)
 //                        ((FragmentProfileManager) fragment).setImageSelected(photoFile.getAbsolutePath());
@@ -1174,21 +1204,24 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 
     public void changeToFragmentDashboard() {
         showToast("changeToFragmentDashboard");
-//        FullScreencall();
 //        isShowContainer = 0;
 //        showBottomMenuBar();
 //        replaceFragment(new FragmentDashboard(), false);
     }
 
+    private void changeToFragmentDemoCollapsing() {
+        view.hideBottomMenuBar();
+        isShowContainer++;
+        replaceFragment(new FragmentCollapsingDemo(), true, Animation.SLIDE_IN_OUT);
+    }
+
     public void changeToFragmentLogin() {
         view.hideBottomMenuBar();
         isShowContainer++;
-        FullScreencall();
         replaceFragment(new FragmentLogin(), true, Animation.SLIDE_IN_OUT);
     }
 
     public void changeToFragmentForgotPassword() {
-        FullScreencall();
         isShowContainer++;
         view.hideBottomMenuBar();
 
@@ -1197,7 +1230,6 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
 
     public void changeToFragmentRegister() {
         view.hideBottomMenuBar();
-        FullScreencall();
         addFragment(new FragmentRegister(), true, Animation.SLIDE_IN_OUT);
     }
 
@@ -1205,12 +1237,10 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     public void changeToFragmentMainMenu() {
         showToast("changeToFragmentMainMenu");
 //        view.hideBottomMenuBar();
-//        FullScreencall();
 //        replaceFragment(new FragmentMainMenu(), false, Animation.SLIDE_IN_OUT);
     }
 
     public void changeToFragmentProfileManager() {
-        FullScreencall();
         view.hideBottomMenuBar();
         isShowContainer++;
 
@@ -1219,14 +1249,12 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     }
 
     public void changeToFragmentProfileManager(String type_change) {
-        FullScreencall();
         view.hideBottomMenuBar();
         addFragment(FragmentProfileManager.newInstance(type_change), true, Animation.SLIDE_IN_OUT);
 
     }
 
     public void changeToFragmentPasswordManager() {
-        FullScreencall();
         view.hideBottomMenuBar();
         isShowContainer++;
 

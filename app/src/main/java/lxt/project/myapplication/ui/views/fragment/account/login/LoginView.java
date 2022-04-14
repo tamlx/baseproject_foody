@@ -111,27 +111,6 @@ public class LoginView extends BaseView<LoginView.UiContainer> implements LoginV
             }
         });
 
-        ui.btnChangeLoginAdminForm.setOnClickListener(view -> {
-            if (isLoginAdmin) {
-                isLoginAdmin = false;
-                ui.btnChangeLoginAdminForm.setText("Đăng nhập quản lý");
-                setVisible(ui.layoutSocialLogin);
-                setVisible(ui.btnShowRegisterForm);
-            } else {
-                isLoginAdmin = true;
-                ui.btnChangeLoginAdminForm.setText("Đăng nhập người dùng");
-                setGone(ui.layoutSocialLogin);
-                setGone(ui.btnShowRegisterForm);
-            }
-        });
-
-        ui.btnForgotPassword.setOnClickListener(new ScaleTouchListener(confScaleTouch) {
-            @Override
-            public void onClick(View v) {
-                callback.onClickForgotPassword();
-            }
-        });
-
         ui.btnShowRegisterForm.setOnClickListener(new ScaleTouchListener(confScaleTouch) {
             @Override
             public void onClick(View v) {
@@ -139,19 +118,6 @@ public class LoginView extends BaseView<LoginView.UiContainer> implements LoginV
             }
         });
 
-        ui.btnLoginWithFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doLoginWithFacebook();
-            }
-        });
-
-        ui.btnLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onLoginWithGoogle();
-            }
-        });
     }
 
     private void doLoginWithFacebook() {
@@ -174,46 +140,6 @@ public class LoginView extends BaseView<LoginView.UiContainer> implements LoginV
             ui.edtLoginPassowrd.requestFocus();
         }
     }
-
-    public void showLoginLayout() {
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                setGone(ui.rLayoutSplash);
-//                setVisible(ui.rLayoutLogin);
-//                ObjectAnimator anim = ObjectAnimator.ofFloat(ui.rLayoutLogin, "translationY", 300, 0);
-//                anim.setDuration(500);
-//                anim.start();
-//            }
-//        }, 1000);
-    }
-
-//    @Override
-//    public void setUpFacebookLoginButton(Fragment fragment, CallbackManager callbackManager) {
-//        ui.login_button_facebook.setFragment(fragment);
-//        ui.login_button_facebook.setReadPermissions("public_profile");
-//        ui.login_button_facebook.setReadPermissions("email");
-//        ui.login_button_facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-////                Toast.makeText(getContext(), "login facebook success", Toast.LENGTH_SHORT).show();
-//
-//                callback.loginFacebookSuccess(loginResult.getAccessToken());
-//
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                Toast.makeText(getContext(), "login facebook cancel", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//                Toast.makeText(getContext(), "login facebook error", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
 
     @Override
     public void showRootViewLogin() {
@@ -261,19 +187,5 @@ public class LoginView extends BaseView<LoginView.UiContainer> implements LoginV
         @UiElement(R.id.btnShowRegisterForm)
         public View btnShowRegisterForm;
 
-//        @UiElement(R.id.login_button_facebook)
-//        public LoginButton login_button_facebook;
-
-        @UiElement(R.id.btnLoginFacebook)
-        public View btnLoginWithFacebook;
-
-        @UiElement(R.id.btnLoginGoogle)
-        public View btnLoginWithGoogle;
-
-        @UiElement(R.id.btnChangeLoginAdminForm)
-        public TextView btnChangeLoginAdminForm;
-
-        @UiElement(R.id.layoutSocialLogin)
-        public View layoutSocialLogin;
     }
 }

@@ -84,6 +84,27 @@
     <item name="gray_holo_light" type="color">#ffd0d0d0</item>
     <color name="grey_200">#EEEEEE</color>
     <color name="yellow">#ffea00</color>
-    <color name="button_background" tools:ignore="MissingDefaultResource">#023373</color>
+    <color name="button_background" tools:ignore="MissingDefaultResource">#247C16</color>
     <color name="bg_placeholder">#dddddd</color>
+
+    <!--dien den gia dung-->
+    <color name="background_main">#202C4A</color>
+    <color name="secondary">#E5E5E5</color>
+    <color name="text_item">#F8B24F</color>
+    <color name="text_price">#9B1539</color>
+    <color name="text_total_price">#247C16</color>
+    <color name="text_price_discount">#8E8E93</color>
+    <color name="text_item_quantity">#007B89</color>
+    <color name="text_order_status">#B2A103</color>
+    <color name="line_view">#8E8E93</color>
+    <color name="line_view_profile">#E5E5E5</color>
+    <color name="cho_xu_ly">#007B89</color>
+    <color name="hoan_tat">#247C16</color>
+    <color name="cho_xac_nhan">#B2A103</color>
+    <color name="hinhnen_admin">#E5E5E5</color>
+    <color name="background_tonkho">#D8D8D8</color>
+    <color name="color_text_seemore">#007B89</color>
+    <color name="color_text_branch">#EA9A96</color>
+    <color name="color_text_price_discount">#9B1539</color>
+    <color name="color_text_price">#8E8E93</color>
 </resources>

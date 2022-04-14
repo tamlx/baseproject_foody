@@ -2,9 +2,9 @@ package lxt.project.myapplication.helper;
 
 public class Consts {
 
-    private static final String HOST_DOMAIN = "http://529.vn/";
-    private static final String HOST_DEV = "http://ninomotor.qtctek.com/";
-    private static final String LOCALHOST = "http://192.168.100.27:80/api_nino_customer/";
+    private static final String HOST_DOMAIN = "";
+    private static final String HOST_DEV = "";
+    private static final String LOCALHOST = "";
 
     public static final String HOST_API = HOST_DEV;
 

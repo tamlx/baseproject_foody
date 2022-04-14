@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRootView"
+    android:layout_width="match_parent"
+    android:layout_above="@+id/nav_view_bottom"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Trang chủ"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <include layout="@layout/layout_custom_item_cart_header"/>
+
+        <ImageView
+            android:id="@+id/btnNotificationHeaderDashboard"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="55dp"
+            android:contentDescription="TODO"
+            android:padding="10dp"
+            android:tint="@color/white"
+            android:src="@drawable/ic_notification" />
+
+    </RelativeLayout>
+
+    <b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius_TL="20dp"
+        app:rv_cornerRadius_TR="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/viewEmptyImageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="TODO"
+                android:scaleType="fitXY"
+                android:src="@drawable/no_image_full"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/layoutSliderImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pager_slider_image"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true" />
+
+                <b.laixuantam.myaarlibrary.widgets.viewpage.ViewPagerIndicator
+                    android:id="@+id/indicator_pager_slider_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="bottom|center"
+                    android:padding="10dip"
+                    app:itemSelectedTint="@color/gray"
+                    app:itemSize="5dp"
+                    app:itemTint="@color/white" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/layoutShimmerSliderDashboard"
+                layout="@layout/layout_shimmer_slider_dashboard" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_list_data_dashboard"
+            android:layout_marginTop="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_item_dashboard" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

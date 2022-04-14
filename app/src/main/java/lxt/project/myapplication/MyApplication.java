@@ -17,7 +17,7 @@ import lxt.project.myapplication.helper.Consts;
 
 @ReportsCrashes(
 
-        mailTo = "qtctek@gmail.com",
+        mailTo = "@gmail.com",
         mode = ReportingInteractionMode.DIALOG,
         resNotifTickerText = R.string.crash_notif_ticker_text,
         resNotifTitle = R.string.crash_notif_title,

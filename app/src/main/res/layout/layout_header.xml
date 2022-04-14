@@ -49,4 +49,17 @@
             tools:visibility="visible" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/btnShowCart"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_img_cart_normal"
+        android:tint="@color/white"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
 </RelativeLayout>

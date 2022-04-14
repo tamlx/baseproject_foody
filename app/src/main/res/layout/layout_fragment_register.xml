@@ -50,9 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:rv_backgroundColor="@color/white"
-        app:rv_cornerRadius_TL="20dp"
-        app:rv_cornerRadius_TR="20dp">
+        app:rv_backgroundColor="@color/white">
 
         <ScrollView
             android:layout_width="match_parent"

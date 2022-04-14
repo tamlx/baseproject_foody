@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <b.laixuantam.myaarlibrary.widgets.roundview.RoundLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/dp20"
+                    app:rv_backgroundColor="@color/white"
+                    app:rv_cornerRadius_TL="20dp"
+                    app:rv_cornerRadius_TR="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <include
+                            layout="@layout/layout_empty"
+                            android:layout_width="match_parent"
+                            android:layout_height="600dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutMainCart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <LinearLayout
+                            android:id="@+id/layoutTinhTien"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginVertical="@dimen/dp15"
+                                android:background="@color/line_view" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginHorizontal="@dimen/dp10"
+                                android:layout_marginVertical="@dimen/dp10"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Tổng tiền thanh toán: "
+                                    android:textColor="@color/text_total_price"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tongTienThanhToan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right"
+                                    android:textColor="@color/text_price"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout
+                                android:id="@+id/btn_buy"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_marginVertical="@dimen/dp15"
+                                android:layout_weight="1"
+                                app:rv_backgroundColor="@color/button_background"
+                                app:rv_cornerRadius="10dp"
+                                app:rv_strokeColor="@color/colorPrimary"
+                                app:rv_strokeWidth="1dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="Đặt hàng"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+
+                            </b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </b.laixuantam.myaarlibrary.widgets.roundview.RoundLinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

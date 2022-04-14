@@ -131,7 +131,8 @@ public class FragmentRegisterView extends BaseView<FragmentRegisterView.UIContai
         userRegisterModel.setUserEmail(email);
         userRegisterModel.setUserPhone(phone);
 
-        callback.onRequestCheckPhoneRegister(userRegisterModel);
+//        callback.onRequestCheckPhoneRegister(userRegisterModel);
+        callback.onSignUp(userRegisterModel);
     }
 
     private boolean checkDataInput() {

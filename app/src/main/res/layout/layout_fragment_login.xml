@@ -49,28 +49,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:rv_backgroundColor="@color/white"
-        app:rv_cornerRadius_TL="20dp"
-        app:rv_cornerRadius_TR="20dp">
-
-        <TextView
-            android:id="@+id/btnChangeLoginAdminForm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="30dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="5dp"
-            android:text="Đăng nhập quản lý"
-            android:textColor="@color/red"
-            android:visibility="visible" />
+        app:rv_backgroundColor="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:orientation="vertical"
             android:padding="40dp">
 
@@ -226,72 +209,6 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-            <LinearLayout
-                android:id="@+id/layoutSocialLogin"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout
-                    android:id="@+id/btnLoginFacebook"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    app:rv_backgroundColor="@color/blue_background_login_fb"
-                    app:rv_cornerRadius="10dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:padding="2dp"
-                        android:src="@drawable/facebook_white" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="40dp"
-                        android:text="facebook"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"></TextView>
-
-                </b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>
-
-                <b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout
-                    android:id="@+id/btnLoginGoogle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    app:rv_backgroundColor="@color/colorPrimary"
-                    app:rv_cornerRadius="10dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:padding="2dp"
-                        android:src="@drawable/googlepluslogo_white" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="google"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"></TextView>
-
-                </b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <TextView
@@ -306,12 +223,6 @@
             android:text="@string/title_button_register"
             android:textColor="@color/red"
             android:visibility="visible" />
-
-<!--        <com.facebook.login.widget.LoginButton-->
-<!--            android:id="@+id/login_button_facebook"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="gone" />-->
 
     </b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>
 

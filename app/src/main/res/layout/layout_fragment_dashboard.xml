@@ -22,8 +22,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <include layout="@layout/layout_custom_item_cart_header"/>
-
         <ImageView
             android:id="@+id/btnNotificationHeaderDashboard"
             android:layout_width="40dp"
@@ -94,10 +92,6 @@
                     app:itemSize="5dp"
                     app:itemTint="@color/white" />
             </RelativeLayout>
-
-            <include
-                android:id="@+id/layoutShimmerSliderDashboard"
-                layout="@layout/layout_shimmer_slider_dashboard" />
 
         </RelativeLayout>
 

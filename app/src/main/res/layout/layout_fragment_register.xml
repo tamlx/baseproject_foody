@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    tools:context=".activity.LoginActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/lb_wellcome_app"
+            android:text="Wellcome to app"
             android:textColor="@color/white"
             android:textStyle="normal" />
 
@@ -455,19 +454,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-        <TextView
-            android:id="@+id/btnShowRegisterForm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="5dp"
-            android:text="@string/title_button_have_account"
-            android:textColor="@color/black"
-            android:visibility="gone" />
 
 
     </b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>

@@ -18,7 +18,6 @@
     </style>
 
     <style name="AppTheme.Launcher">
-        <!--        <item name="android:windowBackground">@drawable/splash0</item>-->
     </style>
     <!--ratingbar-->
     <style name="RatingBarList" parent="Widget.AppCompat.RatingBar.Small">

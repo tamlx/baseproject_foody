@@ -31,6 +31,7 @@
                     app:rv_cornerRadius_TR="20dp">
 
                     <LinearLayout
+                        android:id="@+id/layoutEmpty"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -39,7 +40,7 @@
                         android:visibility="gone">
 
                         <include
-                            layout="@layout/layout_empty"
+                            layout="@layout/layout_empty_list"
                             android:layout_width="match_parent"
                             android:layout_height="600dp" />
                     </LinearLayout>

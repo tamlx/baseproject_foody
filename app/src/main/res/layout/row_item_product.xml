@@ -104,7 +104,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/no_image_full"
+                android:src="@drawable/app_logo"
                 android:visibility="gone"
                 android:contentDescription="TODO" />
 

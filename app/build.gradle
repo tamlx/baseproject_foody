@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "ntkn.project.myapplication"
+        applicationId "foody02.project.myapplication"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 23

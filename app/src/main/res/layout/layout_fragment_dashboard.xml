@@ -64,7 +64,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="TODO"
                 android:scaleType="fitXY"
-                android:src="@drawable/no_image_full"
+                android:src="@drawable/app_logo"
                 android:visibility="gone"
                 tools:visibility="gone" />
 

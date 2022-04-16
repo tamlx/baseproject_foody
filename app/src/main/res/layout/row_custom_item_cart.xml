@@ -72,7 +72,7 @@
                 <ImageView
                     android:id="@+id/imgProduct"
                     android:layout_width="111dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/app_logo"
                     android:layout_height="111dp"/>
 
                 <LinearLayout

@@ -54,7 +54,7 @@ public class FragmentAllProductByCategory extends BaseFragment<FragmentAllProduc
             modelProduct.setName("Product " + i);
             modelProduct.setProduct_price("100000");
             modelProduct.setDescription("Thông tin mô tả sản phẩm");
-            modelProduct.setProduct_image("https://internetofbusiness.com/wp-content/uploads/2018/03/Lamborghini-Egoista-LF-3-4-HERO-640x354.jpg");
+            modelProduct.setProduct_image("");
             list.add(modelProduct);
         }
         view.setDataProductByCategory(list, model);

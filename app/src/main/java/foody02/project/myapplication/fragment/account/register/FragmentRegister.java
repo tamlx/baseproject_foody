@@ -6,6 +6,7 @@ import b.laixuantam.myaarlibrary.base.BaseFragment;
 import b.laixuantam.myaarlibrary.base.BaseParameters;
 import b.laixuantam.myaarlibrary.helper.KeyboardUtils;
 import foody02.project.myapplication.activity.HomeActivity;
+import foody02.project.myapplication.dependency.AppProvider;
 import foody02.project.myapplication.model.UserRegisterModel;
 import foody02.project.myapplication.ui.views.fragment.account.register.FragmentRegisterView;
 import foody02.project.myapplication.ui.views.fragment.account.register.FragmentRegisterViewCallback;
@@ -51,6 +52,8 @@ public class FragmentRegister extends BaseFragment<FragmentRegisterViewInterface
     public void onSignUp(UserRegisterModel userRegisterModel) {
 
         showToast("Đăng ký thành công!");
+        AppProvider.getPreferences().saveUserModel(userRegisterModel);
+        AppProvider.getPreferences().saveStatusLogin(true);
         if (activity != null) {
             activity.changeToFragmentProductCategory();
 

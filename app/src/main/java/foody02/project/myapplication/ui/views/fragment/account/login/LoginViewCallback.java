@@ -9,4 +9,5 @@ public interface LoginViewCallback
 
     void onClickShowRegister();
 
+    void onClickForgotPassword();
 }

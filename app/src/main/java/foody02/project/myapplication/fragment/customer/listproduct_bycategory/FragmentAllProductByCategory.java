@@ -40,9 +40,56 @@ public class FragmentAllProductByCategory extends BaseFragment<FragmentAllProduc
         if (extras != null) {
             model = (CategoryProductModel) extras.get("model");
             if (model != null) {
-                getAllDataByCategoryId(model);
+//                getAllDataByCategoryId(model);
+                getSanPhamTheoDanhMuc(model);
             }
         }
+    }
+
+    private void getSanPhamTheoDanhMuc(CategoryProductModel model) {
+
+        ArrayList<ProductModel> list = new ArrayList<>();
+
+        switch (model.getId_category()) {
+            case "1": // danh sách sản phẩm ứng với danh mục 1
+                ProductModel modelProduct1_1 = new ProductModel();
+                modelProduct1_1.setId("1"); // id của sản phẩm
+                modelProduct1_1.setName("Tên sản phẩm 1"); // tên sản phẩm 1
+                modelProduct1_1.setProduct_price("100000"); // giá sản phẩm 1
+                modelProduct1_1.setDescription("Thông tin mô tả sản phẩm"); // mô tả
+                modelProduct1_1.setProduct_image(""); // link hình sản phẩm
+                list.add(modelProduct1_1);
+
+                ProductModel modelProduct2_1 = new ProductModel();
+                modelProduct2_1.setId("2"); // id của sản phẩm
+                modelProduct2_1.setName("Tên sản phẩm 2"); // tên sản phẩm 1
+                modelProduct2_1.setProduct_price("100000"); // giá sản phẩm 1
+                modelProduct2_1.setDescription("Thông tin mô tả sản phẩm"); // mô tả
+                modelProduct2_1.setProduct_image(""); // link hình sản phẩm
+                list.add(modelProduct2_1);
+                break;
+
+            case "2":// danh sách sản phẩm ứng với danh mục 2
+                ProductModel modelProduct1_2 = new ProductModel();
+                modelProduct1_2.setId("1"); // id của sản phẩm
+                modelProduct1_2.setName("Tên sản phẩm 1"); // tên sản phẩm 1
+                modelProduct1_2.setProduct_price("100000"); // giá sản phẩm 1
+                modelProduct1_2.setDescription("Thông tin mô tả sản phẩm"); // mô tả
+                modelProduct1_2.setProduct_image(""); // link hình sản phẩm
+                list.add(modelProduct1_2);
+
+                ProductModel modelProduct2_2 = new ProductModel();
+                modelProduct2_2.setId("2"); // id của sản phẩm
+                modelProduct2_2.setName("Tên sản phẩm 2"); // tên sản phẩm 1
+                modelProduct2_2.setProduct_price("100000"); // giá sản phẩm 1
+                modelProduct2_2.setDescription("Thông tin mô tả sản phẩm"); // mô tả
+                modelProduct2_2.setProduct_image(""); // link hình sản phẩm
+                list.add(modelProduct2_2);
+                break;
+
+        }
+
+        view.setDataProductByCategory(list, model);
     }
 
     private void getAllDataByCategoryId(CategoryProductModel model) {

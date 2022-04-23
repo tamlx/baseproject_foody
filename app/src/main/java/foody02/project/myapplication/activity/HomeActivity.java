@@ -13,11 +13,14 @@ import b.laixuantam.myaarlibrary.base.BaseFragmentActivity;
 import b.laixuantam.myaarlibrary.base.BaseParameters;
 import b.laixuantam.myaarlibrary.widgets.dialog.alert.KAlertDialog;
 import foody02.project.myapplication.R;
+import foody02.project.myapplication.dependency.AppProvider;
+import foody02.project.myapplication.fragment.account.forgot_password.FragmentForgotPassword;
 import foody02.project.myapplication.fragment.account.login.FragmentLogin;
 import foody02.project.myapplication.fragment.account.register.FragmentRegister;
 import foody02.project.myapplication.fragment.customer.cart.FragmentLayoutCart;
 import foody02.project.myapplication.fragment.customer.category.FragmentProductCategory;
 import foody02.project.myapplication.fragment.customer.dashboard.FragmentDashboard;
+import foody02.project.myapplication.fragment.customer.order.FragmentOrder;
 import foody02.project.myapplication.fragment.customer.product_detail.FragmentProductDetail;
 import foody02.project.myapplication.model.customer.OrderDetailModel;
 import foody02.project.myapplication.model.customer.ProductModel;
@@ -34,7 +37,10 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
         view.init(this, this);
 
 //        changeToFragmentDashboard();
-        changeToFragmentLogin();
+        if (AppProvider.getPreferences().checkLoginStatus()) {
+            changeToFragmentProductCategory();
+        } else
+            changeToFragmentLogin();
     }
 
     @Override
@@ -165,12 +171,14 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     }
 
     public void changeToFragmentProductCategory() {
+        isShowContainer = 0;
         replaceFragment(new FragmentProductCategory(), false);
     }
 
 
     public void changeToFragmentLogin() {
-        replaceFragment(new FragmentLogin(), true, Animation.SLIDE_IN_OUT);
+        isShowContainer = 0;
+        replaceFragment(new FragmentLogin(), false, Animation.SLIDE_IN_OUT);
     }
 
     public void changeToFragmentRegister() {
@@ -191,5 +199,13 @@ public class HomeActivity extends BaseFragmentActivity<BaseMainActivityViewInter
     public static ArrayList<OrderDetailModel> PRODUCT_CHOOSE_MODELS = new ArrayList<>();
 
 
+    public void changeToFragmentForgotPassword() {
+        isShowContainer++;
+        replaceFragment(new FragmentForgotPassword(), true);
+    }
 
+    public void changeToFragmentOrderHistory() {
+        isShowContainer++;
+        replaceFragment(new FragmentOrder(), true);
+    }
 }

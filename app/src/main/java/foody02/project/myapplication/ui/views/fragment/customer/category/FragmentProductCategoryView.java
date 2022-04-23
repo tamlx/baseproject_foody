@@ -27,10 +27,23 @@ public class FragmentProductCategoryView extends BaseView<FragmentProductCategor
 
         setGone(ui.btnBackHeader);
         setVisible(ui.btnShowCart);
+        setVisible(ui.btnOrderHistory);
+        setVisible(ui.btnLogout);
         ui.btnShowCart.setOnClickListener(v -> {
             if (callback != null)
                 callback.onClickShowCart();
         });
+
+        ui.btnLogout.setOnClickListener(v -> {
+            if (callback != null)
+                callback.onClickLogout();
+        });
+
+        ui.btnOrderHistory.setOnClickListener(v -> {
+            if (callback != null)
+                callback.onClickOrderHistory();
+        });
+
     }
 
     @Override
@@ -67,6 +80,12 @@ public class FragmentProductCategoryView extends BaseView<FragmentProductCategor
 
         @UiElement(R.id.btnShowCart)
         public View btnShowCart;
+
+        @UiElement(R.id.btnLogout)
+        public View btnLogout;
+
+        @UiElement(R.id.btnOrderHistory)
+        public View btnOrderHistory;
 
         @UiElement(R.id.tvTitleHeader)
         public TextView title_header;

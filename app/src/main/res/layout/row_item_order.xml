@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="@dimen/dp10"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius="10dp"
+    app:rv_strokeColor="@color/blue_light"
+    app:rv_strokeWidth="0.5dp">
+
+    <ImageView
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:tint="@color/gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/dp10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Mã đơn hàng: "
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvOrderCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_weight="1"
+                android:textColor="@color/green"
+                android:textSize="@dimen/dp15"
+                android:textStyle="bold"
+                tools:text="0998767981" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Ngày đặt: "
+                android:textColor="@color/text_item"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tvOrderCreateDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp15"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp15"
+                android:textStyle="normal"
+                tools:text="11/11/1111" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_level"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/dp10" />
+</b.laixuantam.myaarlibrary.widgets.roundview.RoundRelativeLayout>

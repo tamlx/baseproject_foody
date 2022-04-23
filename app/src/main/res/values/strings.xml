@@ -3,5 +3,5 @@
     <string name="title_activity_main">MainActivity</string>
 
     <string name="empty_list">Danh sách trống</string>
-
+    <string name="title_find_account">Tìm tài khoản của bạn \n Nhập số điện thoại để khôi phục</string>
 </resources>

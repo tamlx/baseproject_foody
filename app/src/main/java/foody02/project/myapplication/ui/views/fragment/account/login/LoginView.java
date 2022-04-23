@@ -106,6 +106,9 @@ public class LoginView extends BaseView<LoginView.UiContainer> implements LoginV
             }
         });
 
+        ui.btnForgotPassword.setOnClickListener(v -> {
+            callback.onClickForgotPassword();
+        });
     }
 
     private void doLogin() {
@@ -164,6 +167,10 @@ public class LoginView extends BaseView<LoginView.UiContainer> implements LoginV
 
         @UiElement(R.id.btnShowRegisterForm)
         public View btnShowRegisterForm;
+
+        @UiElement(R.id.btnForgotPassword)
+        public View btnForgotPassword;
+
 
     }
 }

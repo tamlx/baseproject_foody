@@ -9,6 +9,15 @@ public class OrderDetailModel extends BaseResponseModel {
     private String name;
     private String image;
     private String price_sell;
+    private String id_order;
+
+    public String getId_order() {
+        return id_order;
+    }
+
+    public void setId_order(String id_order) {
+        this.id_order = id_order;
+    }
 
     public String getProduct_detail_id() {
         return product_detail_id;

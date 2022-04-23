@@ -1,6 +1,9 @@
 package foody02.project.myapplication.ui.views.fragment.customer.listproduct_bycategory;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 
 import b.laixuantam.myaarlibrary.base.BaseUiContainer;
 import b.laixuantam.myaarlibrary.base.BaseView;
+import b.laixuantam.myaarlibrary.helper.KeyboardUtils;
 import foody02.project.myapplication.R;
 import foody02.project.myapplication.activity.HomeActivity;
 import foody02.project.myapplication.adapter.customer.ListAllProductAdapter;
@@ -30,6 +34,7 @@ public class FragmentAllProductByCategoryView extends BaseView<FragmentAllProduc
     public void init(HomeActivity activity, FragmentAllProductByCategoryViewCallback callback) {
         this.activity = activity;
         this.callback = callback;
+        KeyboardUtils.setupUI(getView(), activity);
         setVisible(ui.btnShowCart);
         ui.btnBackHeader.setOnClickListener(v -> {
             if (callback != null)
@@ -38,7 +43,24 @@ public class FragmentAllProductByCategoryView extends BaseView<FragmentAllProduc
 
         ui.btnShowCart.setOnClickListener(v -> {
             if (callback != null)
-                 callback.onClickShowCart();
+                callback.onClickShowCart();
+        });
+        ui.edit_filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (productAdapter!= null)
+                    productAdapter.getFilter().filter(s);
+            }
         });
         initRecycleview();
     }
@@ -66,6 +88,8 @@ public class FragmentAllProductByCategoryView extends BaseView<FragmentAllProduc
     @Override
     public void clearListDataProduct() {
         arrayList.clear();
+        productAdapter.getListData().clear();
+        productAdapter.getListDataBackup().clear();
         productAdapter.notifyDataSetChanged();
     }
 
@@ -81,6 +105,8 @@ public class FragmentAllProductByCategoryView extends BaseView<FragmentAllProduc
             ui.title_header.setText(model.getCategory_name());
         }
         arrayList.addAll(data);
+        productAdapter.getListData().addAll(data);
+        productAdapter.getListDataBackup().addAll(data);
         productAdapter.notifyDataSetChanged();
     }
 
@@ -108,6 +134,9 @@ public class FragmentAllProductByCategoryView extends BaseView<FragmentAllProduc
 
         @UiElement(R.id.tvTitleHeader)
         public TextView title_header;
+
+        @UiElement(R.id.edit_filter)
+        public EditText edit_filter;
 
         @UiElement(R.id.recycler_view_list_data)
         public RecyclerView recycler_view_list_data;
